@@ -1,0 +1,239 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Oct  9 11:33:10 2017
+
+@author: CNLiLuk
+"""
+import scipy
+import scipy.optimize as optimize
+import xlwt
+import datetime
+import pandas as pd
+from time import gmtime, strftime
+#import math
+import struct
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+from matplotlib import axes
+from sys import argv
+
+
+class GaussianERFFitException(Exception):
+    def __int__(self,message):
+        self.message = message
+        
+class WriteDada2Excel:  #only be used to one patient
+    def __init__(self,totalCNT_layer,total_sigma,testPatientName):   # init create excel file: if exits / not
+        self._excel_path = os.getcwd() 
+        t = strftime("%Y-%m-%d %H:%M:%S", gmtime()).replace(':', '-')      
+        self._excel_name = t  # set as current time           
+        self._totalLayerNum = totalCNT_layer
+        self._totalSigmaVal = total_sigma    #list[sigmaX,sigmaY]     
+        self._testPatientName = testPatientName
+        
+    def create_excel(self):        
+        book = xlwt.Workbook(encoding="utf-8")
+        self._book = book        
+    
+    def add_sheet(self):
+        #Add a sheet with one line of data  
+        value = "This sheet with patient named: %s" % self._testPatientName
+        book = self._book
+        sheet = book.add_sheet(self._testPatientName)
+        sheet.write(0,0, value)
+    
+    def write2_excel(self):
+        book = xlwt.Workbook(encoding="utf-8")
+        sheet1 = book.add_sheet(self._testPatientName)
+        sheet1.write(0, 0, self._testPatientName) 
+        sheet1.write(0, 1, self._totalLayerNum)
+        sheet1.write(1, 0, "sigmaX") 
+        sheet1.write(1, 1, "sigmaY") 
+        for idx in range(0,len(self._totalSigmaVal),1):
+            sheet1.write(idx + 2, 0, self._totalSigmaVal[idx][0])
+            sheet1.write(idx + 2, 1, self._totalSigmaVal[idx][1])
+        book.save(self._excel_name + ".xls") 
+        return book
+
+class ReadDada:  
+    def __init__(self,datapath,direction,Plane):
+        self.datapath = datapath
+        self.direction = direction
+        self.Plane = Plane
+        self._readbin()        
+    
+    def _readbin(self):
+        Floatsize = 4
+        Intsize = 4
+        if not os.path.isfile(self.datapath):
+            raise GaussianERFFitException("%s is not a file!"%self.datapath)
+        file = open(self.datapath,'rb')
+        shape = struct.unpack('3L',file.read(Intsize*3))
+        Len = shape[0]*shape[1]*shape[2]
+        tupleData = struct.unpack(str(Len)+'f', file.read(Floatsize*Len))
+        data = np.array(tupleData).reshape(shape[2], shape[1],shape[0])#[depth,height,width]
+        #data2D = np.zeros(shape(shape[1],shape[2]),float)
+        if self.direction.lower() == "width":
+            data2D = data[0:shape[2],0:shape[1],int(self.Plane)]# width direction
+            self._layer_cnt = shape[0]
+        if self.direction.lower() == "height":
+            data2D = data[0:shape[2],int(self.Plane),0:shape[0]]#height direction
+            self._layer_cnt = shape[1]
+        if self.direction.lower() != "width" and self.direction.lower() != "height":
+            msg = "like this Gaussian(directory,grid,direction,plane), direction only support 'width' and height'"
+            raise GaussianERFFitException(msg)
+        np.squeeze(data2D)
+        self._data2D = data2D
+        self._shape = data2D.shape
+              
+class GaussianERFFit:
+    def __init__(self,data2D,grid):        
+        self._data2D = data2D
+        self._shape = data2D.shape
+
+        self.grid = grid
+       
+        self.top,self.bottom,self.left,self.right, self.clipData = self._findRectangle()
+        self.p = self._cacl_para()
+        self.sigmaX = abs(self.p[2])
+        self.sigmaY = abs(self.p[3])
+        print(self._Imx,self._Imy,self._IsigmaX,self._IsigmaY,self._IA)
+        print(self.p)
+        print("sigmaX is %f, sigmaY is %f"%(self.sigmaX,self.sigmaY))
+
+        figure2 = plt.figure()
+        ax = Axes3D(figure2)
+        X = np.arange(self.left,self.right,1)
+        Y = np.arange(self.top,self.bottom,1)
+        X,Y = np.meshgrid(X,Y)
+        ax.plot_surface(X,Y,self.clipData,rstride=1,cstride=1,cmap='rainbow')
+        plt.show()
+
+        #print("%d and %d, %d and %d"%(self.top, self.bottom, self.left, self.right))
+        
+    def _plot_2D(self):        
+        #print(self._shape[0],self._shape[1],np.max(data2D))
+        '''
+        hIDD = np.zeros((shape[1],2),float)
+        for i in range(shape[1]):
+            hIDD[i,0] = i
+            for j in range(shape[0]):
+                for k in range(shape[2]):                    
+                    hIDD[i,1] = hIDD[i,1] + data[k,i,j]
+                    
+        plt.figure(1)
+        plt.plot(hIDD[0:shape[1],0], hIDD[0:shape[1],1])
+        plt.show()      '''        
+
+        figure2 = plt.figure()
+        ax = Axes3D(figure2)
+        X = np.arange(0,self._data2D[0],1)
+        Y = np.arange(0,self._data2D[1],1)
+        X,Y = np.meshgrid(X,Y)
+        ax.plot_surface(X,Y,self._data2D,rstride=1,cstride=1,cmap='rainbow')
+        plt.show()
+
+        
+        
+
+    def _findRectangle(self):
+        for i in range(0,self._shape[0],1):
+            if(sum(self._data2D[i,0:self._shape[1]]) > 0):
+                top = i
+                break
+                
+            
+            
+        for i in range(self._shape[0]-1,0,-1):
+            if(sum(self._data2D[i,0:self._shape[1]])> 0):
+                bottom = i
+                break
+                
+            
+        for i in range(0,self._shape[1],1):
+            if(sum(self._data2D[0:self._shape[0], i]) > 0):
+                left = i
+                break
+            
+            
+        for i in range(self._shape[1]-1,0,-1):
+            if(sum(self._data2D[0:self._shape[0], i]) > 0):
+                right = i
+                break
+            
+            
+        clippeddata2D = self._data2D[top:bottom, left:right]
+        return top, bottom, left, right, clippeddata2D
+    
+    
+    def _getInitP(self):
+
+        self._Imx = (self.clipData.shape[1])/2.0
+        self._Imy = (self.clipData.shape[0])/2.0
+        self._IA = np.amax(self.clipData)*0.25#Martin's equation 0.25*A*erf()
+        dataX = self.clipData[int(self._Imy), :]
+        dataY = self.clipData[:, int(self._Imx)]
+        self._IsigmaX = scipy.sqrt(scipy.average((scipy.arange(dataX.size) - int(self._Imx))**2, None, dataX)/2.0)
+        self._IsigmaY = scipy.sqrt(scipy.average((scipy.arange(dataY.size) - int(self._Imy))**2, None, dataY)/2.0)
+        return self._Imx, self._Imy,self._IsigmaX,self._IsigmaY,self._IA
+     
+    def _cacl_para(self):
+
+        def ferf(mx,my,sigmaX,sigmaY,A):
+            delta = self.grid
+            #return lambda x, y : scipy.longfloat(0.25*A*scipy.exp(-((x-mx)*delta)**2/(2*sigmaX**2) - (((y-my)*delta)**2/(2*sigmaY**2))))
+            return lambda x, y : 0.25*A*(scipy.special.erf(((x-mx+0.5)*delta)/(scipy.sqrt(2.0)*sigmaX))-scipy.special.erf(((x-mx-0.5)*delta)/(scipy.sqrt(2.0)*sigmaX)))*(scipy.special.erf(((y-my+0.5)*delta)/(scipy.sqrt(2.0)*sigmaY))-scipy.special.erf(((y-my-0.5)*delta)/(scipy.sqrt(2.0)*sigmaY)))
+        def errorSquare(p):
+            cd = self.clipData
+            y, x= scipy.indices(cd.shape) # data2D = data[0:shape[2],self.Plane,0:shape[0]], depth,height,width = z,y,x here.
+            f = ferf(*p)
+            return (f(x,y) - cd).ravel()
+        initialP = self._getInitP()
+        p, cov, infodict, msg, ier = optimize.leastsq(errorSquare, initialP, full_output = True)
+        return p      
+        
+        
+   
+
+if __name__ == "__main__" :
+    # test data folder dir    
+    INPUT_FOLDER = 'D:/TestData/SingleSpot/'
+    os.chdir(INPUT_FOLDER)
+    base_dir = os.path.abspath(os.path.join(INPUT_FOLDER, os.pardir))    
+    test_data_exe = os.path.join(base_dir,"read_dose.exe")
+    
+    patients = os.listdir(INPUT_FOLDER)
+    patients_benchMark = []
+    patients_Proton = []
+    direction = "height"
+    grid = 2    
+    for i in patients:
+        if not i.endswith("_Proton"):
+            patients_benchMark.append(i)
+        elif i.endswith("_Proton"):
+            patients_Proton.append(i)
+            
+    for i in patients_benchMark:
+        path_benchMark = INPUT_FOLDER + i + '/'  #TODO: transfer the file format use readfile.exe
+        #process= subprocess.Popen(['cmd','/c',r'D:\TestData\cidose']) #subprocess.Popen(['cmd','/c',r'calc.exe'])
+        #process.wait()
+        #subprocess.check_call(['cidose'])  # no file output
+        path_proton = INPUT_FOLDER + i + "_Proton" + '/' + "PhysicalDose.00"
+        data_2DbenchMark = ReadDada(path_proton,direction,1)        
+        lay_cnt = data_2DbenchMark._layer_cnt
+        benchMarch_sigma = []        # [sigmaX,sigmaY]
+        protonCS_sigma = []
+        for lay_idx in range(0,lay_cnt,1):  # loop for all the layers
+            #data_2DbenchMark = ReadDada(path_benchMark,direction,lay_idx)
+            data_2Dproton = ReadDada(path_proton,direction,lay_idx)
+            #axx_benchMarch = GaussianERFFit(data_2DbenchMark._data2D,grid)
+            #benchMarch_sigma.append([axx_benchMarch.sigmaX,axx_benchMarch.sigmaY])
+            #print(axx_benchMarch.sigmaX, axx_benchMarch.sigmaY)  #TODO: save the data to an excel
+            axx_proton = GaussianERFFit(data_2Dproton._data2D,grid)   
+            protonCS_sigma.append([axx_proton.sigmaX,axx_proton.sigmaY])
+            print(axx_proton.sigmaX, axx_proton.sigmaY)                    
+
+    

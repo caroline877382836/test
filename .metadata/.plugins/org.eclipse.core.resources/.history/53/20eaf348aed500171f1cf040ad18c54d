@@ -1,0 +1,27 @@
+import os
+import dicom
+import numpy as ny
+from xlwt.antlr import ifelse
+
+
+bs_path = "D:/Python_data/sample_images"
+#load_dicom
+def read_dicom(data_path):
+    for i in os.listdir(data_path):
+        cr_path = bs_path + '/'+ i
+        for cr_sliceImgage in os.listdir(cr_path):
+            slice_data = dicom.read_file(cr_sliceImgage)
+            if slice_data.__contains__("Image Position(Patient)"):
+                slice_x, slice_y, slice_z = slice_data.data_element("Image Position(Patient)").value
+            ifelse(slice_data.__contains__('Slice Location'))
+                sliceThickness = slice_data.data_element("Slice Location").value
+        
+    return DicomImage
+#resample
+
+#plot_3D
+
+#segmentation
+
+if __name__ == '__main__':
+    slice_data1 = read_dicom(bs_path)

@@ -1,0 +1,39 @@
+import os
+import dicom
+import numpy as np
+from numpy import float16
+
+
+bs_path = "D:/Python_data/sample_images"
+l_patientName = np.sort(os.listdir(bs_path))
+
+#load_dicom: only load one patient data, also save the sliceThkiness
+def load_dicom(patient_name):
+    cr_path = bs_path + '/'+ patient_name  #consider only one patient data
+    image = np.array([],dtype=float16)
+    slice_data = np.array([])
+    
+    for cr_sliceImage in np.sort(os.listdir(cr_path)):
+        path_sliceImage =  cr_path + '/'+ cr_sliceImage
+        dicom_file = dicom.read_file(path_sliceImage)
+        
+        image_data = dicom_file.data_element("PixelData").value        
+        image.append(np.array(image_data,dtype=float16))
+        slice_data.append(dicom_file)
+        
+    if slice_data[0].__contains__("ImagePositionPatient"):
+        st_0 = slice_data[0].data_element("ImagePositionPatient").value
+        st_1 = slice_data[1].data_element("ImagePositionPatient").value
+        sliceThickness =  np.abs(st_0-st_1)
+    elif slice_data.__contains__('Slice Location'):
+        sliceThickness = slice_data.data_element("Slice Location").value
+              
+    return image, sliceThickness
+#resample
+
+#plot_3D
+
+#segmentation
+
+if __name__ == '__main__':
+    slice_data1 = load_dicom(l_patientName[0])

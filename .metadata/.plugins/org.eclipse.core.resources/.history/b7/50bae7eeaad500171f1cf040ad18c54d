@@ -1,0 +1,26 @@
+import os
+import dicom
+import numpy as ny
+
+
+bs_path = "D:/Python_data/sample_images"
+#load_dicom
+def read_dicom(data_path):
+    for i in os.listdir(data_path):
+        cr_path = bs_path + '/'+ i
+        for cr_sliceImgage in os.listdir(cr_path):
+            slice_data = dicom.read_file(cr_sliceImgage)
+            DicomImage = slice_data.pixel_array
+            #    # store the raw image data
+            DicomImage = slice_data.pixel_array
+            #if slice_data.__contains__('Image Position(Patient)'):
+                #slice_x,slice_y,slice = slice_data.Image Position(Patient)
+    return DicomImage
+#resample
+
+#plot_3D
+
+#segmentation
+
+if __name__ == '__main__':
+    read_dicom(bs_path)

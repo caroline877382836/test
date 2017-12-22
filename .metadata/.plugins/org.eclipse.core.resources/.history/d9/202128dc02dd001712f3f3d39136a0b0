@@ -1,0 +1,22 @@
+import mysql.connector
+
+def query_with_fetchone():
+    try:
+        conn = mysql.connector.connect(host='localhost',database='awesome',user='root',password='111111')
+        cursor = conn.cursor()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM books")
+ 
+        row = cursor.fetchone()
+ 
+        while row is not None:
+            print(row)
+            row = cursor.fetchone()
+ 
+    finally:
+        cursor.close()
+        conn.close()
+ 
+ 
+if __name__ == '__main__':
+    query_with_fetchone()

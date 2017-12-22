@@ -1,0 +1,82 @@
+-- VERSION_4
+-- START DISKCACHE_2
+D:\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\CarbonTest\com.python.pydev.analysis\v2_indexcache
+BeamData|1499135570050869000|D:\workspace\CarbonTest\Test\BeamData.py
+PlanPara|1499135622672869000|D:\workspace\CarbonTest\Test\PlanPara.py
+AppConfig|1499147756602869000|D:\workspace\CarbonTest\Test\AppConfig.py
+patientData|1498639868126368000|D:\workspace\CarbonTest\Test\patientData.py
+test|1498638060006574000|D:\workspace\CarbonTest\Test\test.py
+CSPlan|1498642550180574000|D:\workspace\CarbonTest\Test\CSPlan.py
+spotPlacement|1498728860527523000|D:\workspace\CarbonTest\Test\spotPlacement.py
+-- END DISKCACHE
+-- START DICTIONARY
+13
+5=AppConfig
+7=OffsetBeamInfo
+4=patientData
+3=test
+13=CalculationAlgorithm
+9=SpotMode
+12=NuclearInteraction
+10=LateralMarginCheckMethod
+1=PlanPara
+6=BeamData
+2=spotPlacement
+8=OffsetBeamInfo.__init__
+11=DependencyType
+-- END DICTIONARY
+-- START TREE 1
+36
+cal|1|CalculationAlgorithm!9@
+dep|1|DependencyType!9@
+dos|1|doSpotPlacement!18@
+dot|1|doTargetExpansion!18@
+end|1|endTime!27@
+fil|1|file_dir!11@
+get|1|getExtentedTargetGrid!18@
+gri|1|GridSize!35@
+lat|1|LateralMarginCheckMethod!41@
+m_a|6|m_arrPrescribedOAR!11@m_arrOffsetBeamInfo!11@m_arrPrescribedTarget!11@m_apMargin!11@m_arrBeamNums!11@m_avgRespiCycle!51@
+m_b|1|m_bNeedOptimization!51@
+m_c|1|m_convEps!11@
+m_f|3|m_fractionDose!11@m_fhMargin!11@m_fieldArea!51@
+m_g|2|m_gantingDutyEnd!51@m_gantingDutyStart!51@
+m_i|1|m_IsoToSkin!51@
+m_m|12|m_maxEnergy!51@m_maxRange!51@m_maxXPos!51@m_maxYPos!51@m_maxTargetOffaxisDist!51@m_matrixBeamToPatient!51@m_maxParticles!51@m_marginProximal!51@m_marginDistal!51@m_minYPos!51@m_marginLateral!51@m_minXPos!51@
+m_n|23|m_nTargetNbr!51@m_nominalTreatedVol!51@m_nNucleareraction!11@m_nGridDimY!11@m_nSpotMode!11@m_nGridDimZ!11@m_nKernelGenerationPrecision!11@m_nTotalSpotParams!51@m_nMaxIterations!11@m_nBeamNumr!51@m_nCalcAlgo!11@m_nFinalCalculationPrecision!11@m_nRidgeFilterChange!11@m_nBeamSizeChange!11@m_nSweeps!51@m_nGroupNum!51@m_nominalTreatedVolume!51@m_nGauss!51@m_nEnergyChange!11@m_nominalBeamIntensity!51@m_nGridDimX!11@m_nPatBitNum!11@m_nOffsetDose!11@
+m_p|1|m_ptIsoCenter!51@
+m_r|3|m_radiusDistalSmearing!51@m_radiusProximalSmearing!51@m_rlMargin!11@
+m_s|21|m_stepX!51@m_strIonType!51@m_strPatientID!11@m_strRbeModeID!11@m_sliceThickness!51@m_stepY!51@m_strMachineID!51@m_strTargetName!51@m_strCalcMessage!11@m_strCalcStatus!11@m_strEffectiveDoseFile!51@m_strPlanID!11@m_strLongSt!51@m_strRbeModelID!51@m_scalingFactor!51@m_strPhysicalDoseFile!51@m_scalingFactor!11@m_sid!51@m_strRFID!51@m_strFileVersion!11@m_strFileVersion!51@
+m_t|10|m_targetMeanRbe!51@m_totalParticle!51@m_targetWeqThickness!51@m_targetMinWeqDepth!51@m_targetMaxWeqDepth!51@m_targetMeanPhyDose!51@m_targetMeanEffDose!51@m_targetMaxOffaxisDist!51@m_targetVolume!51@m_targetMaxWeqThickness!51@
+m_v|3|m_voxelSizeZ!11@m_voxelSizeX!11@m_voxelSizeY!11@
+ncn|1|nCntOfShots!51@
+nee|1|needsOptimization!27@
+nnu|1|nNuclearInteraction!11@
+nsp|1|nSpotMode!11@
+nuc|1|NuclearInteraction!9@
+off|1|OffsetBeamInfo!9@
+pla|1|placeSpots!18@
+ray|1|rayTraceResolution!43@
+sav|1|saveExtendedRoiBitMap!18@
+sca|2|SCALING_FACTOR!51@SCAN_MODE!51@
+spe|1|spentTime!27@
+spo|1|SpotMode!9@
+sta|1|startTime!27@
+str|2|strDataFolder!27@strLocalFilesFolder!27@
+-- END TREE
+-- START TREE 2
+13
+__i|1|__init__!7&10@
+dep|1|dependencyType!8&11@
+ebe|1|eBeamTarget!9&11@
+ece|2|eCenterCheck!10&43@eCenterCheckPlus1Spot!10&43@
+eco|1|eCornerCheck!10&43@
+eof|4|eOFFSET_NONE!11&11@eOFFSET_DOSE!11&11@eOff!12&11@eOFFSET_BEAM!11&11@
+epa|1|ePatient!12&11@
+epb|2|ePBA!13&11@ePBSA!13&11@
+eph|1|ePhantom!12&11@
+eta|1|eTargetToPrescribed!9&11@
+eun|1|eUnkown!13&11@
+nbe|1|nBeamNum!8&11@
+nfr|1|nFractions!8&11@
+-- END TREE

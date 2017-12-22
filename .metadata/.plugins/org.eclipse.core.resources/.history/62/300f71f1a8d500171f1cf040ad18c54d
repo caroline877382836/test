@@ -1,0 +1,22 @@
+import os
+import dicom
+import numpy as ny
+from operator import __setslice__
+
+bs_path = "D:/Python_data/sample_images"
+#load_dicom
+def read_dicom(data_path):
+    for i in os.listdir(data_path):
+        cr_path = bs_path + '/'+ i
+        for cr_sliceImgage in os.listdir(cr_path):
+            slice_data = dicom.read_file(cr_sliceImgage)
+            if slice_data.
+    return slice_data
+#resample
+
+#plot_3D
+
+#segmentation
+
+if __name__ == '__main__':
+    read_dicom(bs_path)

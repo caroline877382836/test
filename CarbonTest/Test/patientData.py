@@ -1,0 +1,1 @@
+GridSize = 2

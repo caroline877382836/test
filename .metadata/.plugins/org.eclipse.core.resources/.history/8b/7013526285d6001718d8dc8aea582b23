@@ -1,0 +1,6 @@
+'''
+(Batch) gradient descent algorithm
+Gradient descent is an optimization algorithm that works by efficiently searching the parameter space, intercept(¦È0¦È0) and slope(¦È1¦È1) for linear regression, according to the following rule:
+
+http://www.bogotobogo.com/python/python_numpy_batch_gradient_descent_algorithm.php
+'''

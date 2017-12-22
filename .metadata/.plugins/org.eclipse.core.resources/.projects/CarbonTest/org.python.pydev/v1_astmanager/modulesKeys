@@ -1,0 +1,8 @@
+MODULES_MANAGER_V2
+AppConfig|D:\workspace\CarbonTest\Test\AppConfig.py
+BeamData|D:\workspace\CarbonTest\Test\BeamData.py
+CSPlan|D:\workspace\CarbonTest\Test\CSPlan.py
+PlanPara|D:\workspace\CarbonTest\Test\PlanPara.py
+patientData|D:\workspace\CarbonTest\Test\patientData.py
+spotPlacement|D:\workspace\CarbonTest\Test\spotPlacement.py
+test|D:\workspace\CarbonTest\Test\test.py

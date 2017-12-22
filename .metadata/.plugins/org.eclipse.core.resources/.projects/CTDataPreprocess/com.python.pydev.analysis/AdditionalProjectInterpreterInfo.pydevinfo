@@ -1,0 +1,22 @@
+-- VERSION_4
+-- START DISKCACHE_2
+D:\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\CTDataPreprocess\com.python.pydev.analysis\v2_indexcache
+main|1512366818706122000|D:\workspace\CTDataPreprocess\main.py
+-- END DISKCACHE
+-- START DICTIONARY
+1
+1=main
+-- END DICTIONARY
+-- START TREE 1
+7
+bs_|1|bs_path!11@
+get|1|Get_pixel_HU!10@
+ima|2|image_HU!11@image!11@
+l_p|1|l_patientName!11@
+loa|1|load_dicom!10@
+plo|2|plot_3D_image!10@plot_2DSlice_image!10@
+res|1|resample!10@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

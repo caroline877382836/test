@@ -1,0 +1,10 @@
+INSTUPtest
+D:\workspace\TensorFlow\test.py
+INFOS:&&1|1|2|0&&2|3|2|1&&3|4|2|5&&3|4|2|5&&2|6|2|1&&3|7|2|0
+GaussianERFFitException=1
+test=2
+t=7
+log_file=4
+__int__=3
+GaussianERFFitException.__int__=5
+write_log_msg=6

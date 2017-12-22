@@ -1,0 +1,97 @@
+# Import the neccessary modules for data manipulation and visual representation
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib as matplot
+import seaborn as sns
+import IPython
+from IPython import embed
+#%matplotlib inline
+
+#Read the analytics csv file and store our dataset into a dataframe called "df"
+df = pd.DataFrame.from_csv('D:\Python_data\human-resources-analytics\HR_comma_sep.csv', index_col=None)
+# Check to see if there are any missing values in our data set
+df.isnull().any()
+# Get a quick overview of what we are dealing with in our dataset
+df.head()
+
+# Renaming certain columns for better readability
+df = df.rename(columns={'satisfaction_level': 'satisfaction', 
+                        'last_evaluation': 'evaluation',
+                        'number_project': 'projectCount',
+                        'average_montly_hours': 'averageMonthlyHours',
+                        'time_spend_company': 'yearsAtCompany',
+                        'Work_accident': 'workAccident',
+                        'promotion_last_5years': 'promotion',
+                        'sales' : 'department',
+                        'left' : 'turnover'
+                        })
+
+# Move the reponse variable "turnover" to the front of the table
+front = df['turnover']
+df.drop(labels=['turnover'], axis=1,inplace = True)
+df.insert(0, 'turnover', front)
+df.head()
+
+# The dataset contains 10 columns and 14999 observations
+df.shape
+# Check the type of our features. 
+df.dtypes
+# Looks like about 76% of employees stayed and 24% of employees left. 
+# NOTE: When performing cross validation, its important to maintain this turnover ratio
+turnover_rate = df.turnover.value_counts() / len(df)
+turnover_rate
+# Display the statistical overview of the employees
+df.describe()
+# Overview of summary (Turnover V.S. Non-turnover)
+turnover_Summary = df.groupby('turnover')
+turnover_Summary.mean()
+
+# Correlation Matrix & Heatmap
+#Correlation Matrix
+corr = df.corr()
+corr = (corr)
+sns.heatmap(corr, 
+            xticklabels=corr.columns.values,
+            yticklabels=corr.columns.values)
+
+corr
+
+#One-Sample T-Test (Measuring Satisfaction Level)
+# Let's compare the means of our employee turnover satisfaction against the employee population satisfaction
+#Hypothesis Testing: Is there significant difference in the means of satisfaction level between employees who had a turnover 
+#and temployees who had no turnover?
+
+#Null Hypothesis: (H0: pTS = pES) The null hypothesis would be that there is no difference in satisfaction level between employees 
+#who did turnover and those who did not..
+
+#Alternate Hypothesis: (HA: pTS != pES) The alternative hypothesis would be that there is a difference in satisfaction level between employees
+#who did turnover and those who did not..
+emp_population = df['satisfaction'][df['turnover'] == 0].mean()
+emp_turnover_satisfaction = df[df['turnover']==1]['satisfaction'].mean()
+#df['satisfaction'][df['turnover']==1].mean()
+print( 'The mean satisfaction for the employee population with no turnover is: ' + str(emp_population))
+print( 'The mean satisfaction for employees that had a turnover is: ' + str(emp_turnover_satisfaction) )
+
+#Conducting the T-Test
+#Let's conduct a t-test at 95% confidence level and see if it correctly rejects the null hypothesis that the sample comes from 
+#the same distribution as the employee population.To conduct a one sample t-test, we can use the stats.ttest_1samp() function:
+import scipy.stats as stats
+stats.ttest_1samp(a=  df[df['turnover']==1]['satisfaction'], # Sample of Employee satisfaction who had a Turnover
+                  popmean = emp_population)  # Employee Who Had No Turnover satisfaction mean
+
+#T-Test Result:   Ttest_1sampResult(statistic=-51.3303486754725, pvalue=0.0)
+
+#The test result shows the test statistic "t" is equal to -51.33. This test statistic tells us how much the sample mean deviates 
+#from the null hypothesis. If the t-statistic lies outside the quantiles of the t-distribution corresponding to 
+#our confidence level and degrees of freedom, we reject the null hypothesis. 
+#We can check the quantiles with stats.t.ppf():
+degree_freedom = len(df[df['turnover']==1])
+
+LQ = stats.t.ppf(0.025,degree_freedom)  # Left Quartile
+
+RQ = stats.t.ppf(0.975,degree_freedom)  # Right Quartile
+
+print ('The t-distribution left quartile range is: ' + str(LQ))
+print ('The t-distribution right quartile range is: ' + str(RQ))

@@ -1,0 +1,8 @@
+MODULES_MANAGER_V2
+CTDataProcessing|D:\workspace\EmployeePredicitor\CTDataProcessing.py
+CTPreprocessing|D:\workspace\EmployeePredicitor\CTPreprocessing.py
+GaussianFit|D:\workspace\EmployeePredicitor\GaussianFit.py
+TestGradientDiscent|D:\workspace\EmployeePredicitor\TestGradientDiscent.py
+mysql|D:\workspace\EmployeePredicitor\mysql.py
+readJason|D:\workspace\EmployeePredicitor\readJason.py
+read_binaryFile|D:\workspace\EmployeePredicitor\read_binaryFile.py
