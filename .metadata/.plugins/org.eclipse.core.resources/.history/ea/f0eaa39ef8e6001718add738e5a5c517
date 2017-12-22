@@ -1,0 +1,46 @@
+from enum import Enum
+
+class operation(Enum):
+    BUY = 1
+    SELL = 2
+    MODIFY = 3
+    CANCEL = 4
+    PRINT = 5
+    
+class ExchangeSystem():
+    
+    def __init__(self, line_str): 
+        self._input = line_str
+        ope = line_str.split()
+        if ope[0] == operation.BUY.value:
+            
+    def _SetOrderType(self,orderType): 
+        self._orderType = orderType
+        
+    def _GetOrderType(self): 
+        return OrderType = self._orderType
+         
+    def _buy(self):    
+        
+        return 0
+    
+    def _sell(self):    
+        
+        return 0
+    
+    def _modify(self):    
+        
+        return 0
+    
+    def _cancel(self):    
+        
+        return 0 
+    
+    def _print(self):    
+        
+        return 0            
+        
+
+if __name__ == "__main__" :
+    msg = "log_msg.txt"
+    

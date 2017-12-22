@@ -1,17 +1,37 @@
 -- VERSION_4
 -- START DISKCACHE_2
 D:\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\TensorFlow\com.python.pydev.analysis\v2_indexcache
-test|1512626394543743000|D:\workspace\TensorFlow\test.py
 -- END DISKCACHE
 -- START DICTIONARY
-1
-1=test
+0
 -- END DICTIONARY
 -- START TREE 1
-2
-hel|1|hello!11@
-ses|1|sess!11@
+4
+col|0|
+exc|0|
+msg|0|
+ope|0|
 -- END TREE
 -- START TREE 2
-0
+20
+__i|0|
+_bu|0|
+_ca|0|
+_ge|0|
+_in|0|
+_lo|0|
+_mo|0|
+_op|0|
+_or|0|
+_pr|0|
+_qu|0|
+_se|0|
+blu|0|
+buy|0|
+can|0|
+gre|0|
+mod|0|
+pri|0|
+red|0|
+sel|0|
 -- END TREE
