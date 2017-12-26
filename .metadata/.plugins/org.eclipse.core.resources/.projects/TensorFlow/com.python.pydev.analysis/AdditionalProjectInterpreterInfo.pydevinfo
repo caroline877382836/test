@@ -1,37 +1,41 @@
 -- VERSION_4
 -- START DISKCACHE_2
 D:\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\TensorFlow\com.python.pydev.analysis\v2_indexcache
+test|1513935322137025000|D:\workspace\TensorFlow\test.py
 -- END DISKCACHE
 -- START DICTIONARY
-0
+11
+8=ExchangeSystem._SetOrderType
+9=ExchangeSystem._SetPrice
+1=test
+4=ExchangeSystem._SetNewPrice
+7=ExchangeSystem._SetOrderID
+5=ExchangeSystem._SetNewQuantity
+10=ExchangeSystem._SetQuantity
+2=ExchangeSystem
+6=ExchangeSystem._SetModifyOpe
+3=ExchangeSystem.__init__
+11=operation
 -- END DICTIONARY
 -- START TREE 1
-4
-col|0|
-exc|0|
-msg|0|
-ope|0|
+3
+exc|1|ExchangeSystem!9@
+msg|1|msg!11@
+ope|1|operation!9@
 -- END TREE
 -- START TREE 2
-20
-__i|0|
-_bu|0|
-_ca|0|
-_ge|0|
-_in|0|
-_lo|0|
-_mo|0|
-_op|0|
-_or|0|
-_pr|0|
-_qu|0|
-_se|0|
-blu|0|
-buy|0|
-can|0|
-gre|0|
-mod|0|
-pri|0|
-red|0|
-sel|0|
+13
+__i|1|__init__!2&10@
+_ge|7|_GetModifyOpe!2&10@_GetNewQuantity!2&10@_GetPrice!2&10@_GetOrderID!2&10@_GetQuantity!2&10@_GetOrderType!2&10@_GetNewPrice!2&10@
+_in|5|_IniModify!2&10@_IniSELL!2&10@_input!3&11@_IniBUY!2&10@_IniCancel!2&10@
+_ne|3|_NewPrice!4&11@_NewQuantity!5&11@_newOperation!6&11@
+_or|2|_orderID!7&11@_orderType!8&11@
+_pr|2|_print!2&10@_price!9&11@
+_qu|1|_quantity!10&11@
+_se|7|_SetOrderID!2&10@_SetQuantity!2&10@_SetNewQuantity!2&10@_SetModifyOpe!2&10@_SetOrderType!2&10@_SetPrice!2&10@_SetNewPrice!2&10@
+buy|1|BUY!11&11@
+can|1|CANCEL!11&11@
+mod|1|MODIFY!11&11@
+pri|1|PRINT!11&11@
+sel|1|SELL!11&11@
 -- END TREE
