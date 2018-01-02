@@ -4010,6 +4010,10 @@ pygments.token|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-pac
 pygments.unistring|C:\Python27rc\Lib\site-packages\pygments\unistring.py
 pygments.util|C:\Python27rc\Lib\site-packages\pygments\util.py
 pylab|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pylab.py
+pyllist.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyllist\__init__.py
+pyllist.compat|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyllist\compat.py
+pyllist.dllist|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyllist\dllist.py
+pyllist.sllist|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyllist\sllist.py
 pyparsing|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyparsing.py
 pyproj.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyproj\__init__.py
 pyproj._proj|C:\Users\Cnxuacar\AppData\Local\Continuum\miniconda2\lib\site-packages\pyproj\_proj.pyd

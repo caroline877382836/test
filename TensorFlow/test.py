@@ -1,4 +1,5 @@
 from enum import Enum
+from pyllist import dllist
 
 class operation(Enum):
     BUY = 1
@@ -85,7 +86,9 @@ class ExchangeSystem():
     
     def _print(self):    
         
-        return 0            
+        return 0
+    def _buy_sell(self):
+                    
         
 
 if __name__ == "__main__" :

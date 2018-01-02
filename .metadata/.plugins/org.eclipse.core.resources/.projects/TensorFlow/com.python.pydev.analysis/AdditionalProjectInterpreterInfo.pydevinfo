@@ -1,7 +1,7 @@
 -- VERSION_4
 -- START DISKCACHE_2
 D:\workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\TensorFlow\com.python.pydev.analysis\v2_indexcache
-test|1513935322137025000|D:\workspace\TensorFlow\test.py
+test|1514365522397880000|D:\workspace\TensorFlow\test.py
 -- END DISKCACHE
 -- START DICTIONARY
 11
@@ -24,8 +24,9 @@ msg|1|msg!11@
 ope|1|operation!9@
 -- END TREE
 -- START TREE 2
-13
+14
 __i|1|__init__!2&10@
+_bu|1|_buy_sell!2&10@
 _ge|7|_GetModifyOpe!2&10@_GetNewQuantity!2&10@_GetPrice!2&10@_GetOrderID!2&10@_GetQuantity!2&10@_GetOrderType!2&10@_GetNewPrice!2&10@
 _in|5|_IniModify!2&10@_IniSELL!2&10@_input!3&11@_IniBUY!2&10@_IniCancel!2&10@
 _ne|3|_NewPrice!4&11@_NewQuantity!5&11@_newOperation!6&11@

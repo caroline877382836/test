@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="\\"/>
 			<item value="\"/>
 			<item value="//"/>
 			<item value="double"/>
@@ -15,9 +16,10 @@
 			<item value="readString( istreamBeamParam ); //opt"/>
 			<item value="readValue&lt;double&gt;( istreamBeamParam );"/>
 			<item value=" readString( istreamBeamParam );  "/>
-			<item value=";"/>
 		</list>
 		<list key="replacehistory">
+			<item value="\"/>
+			<item value="\\"/>
 			<item value="/"/>
 			<item value="#"/>
 			<item value=""/>

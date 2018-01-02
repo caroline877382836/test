@@ -5,6 +5,7 @@ Created on Mon Oct  9 11:33:10 2017
 @author: CNLiLuk
 """
 import scipy
+from scipy import special
 import scipy.optimize as optimize
 import xlwt
 import datetime
@@ -23,11 +24,12 @@ from sys import argv
 
 class GaussianERFFitException(Exception):
     def __init__(self,file_name): 
-        self._log_file_name = file_name
-        self._log_file = open(self._log_file_name, "w")
+        self._log_file_name = file_name        
         
-    def _write_log_msg(self,message):                
-        self._log_file.write("warning: {0}".format(message))
+    def _write_log_msg(self,message): 
+        self._log_file = open(self._log_file_name, "a")               
+        self._log_file.write("{0}".format(message) + "\r\n")
+        self._log_file.close()
         
 class WriteDada2Excel:  #each patient correspond to one sheet
     def __init__(self,book,benchMarch_sigma, protonCS_sigma, del_sigma, testPatientName):   # init create excel file: if exits / not
@@ -74,7 +76,7 @@ class ReadDada:
         Floatsize = 4
         Intsize = 4
         if not os.path.isfile(self.datapath):            
-            log_msg._write_log_msg("%s is not a file!"%self.datapath + "\r\n")  
+            log_msg._write_log_msg("%s is not a file!"%self.datapath)  
         file = open(self.datapath,'rb')
         shape = struct.unpack('3L',file.read(Intsize*3))
         Len = shape[0]*shape[1]*shape[2]
@@ -90,7 +92,7 @@ class ReadDada:
         if self.direction.lower() != "width" and self.direction.lower() != "height":
             msg = "like this Gaussian(directory,grid,direction,plane), direction only support 'width' and height'"
             #output = GaussianERFFitException(msg)
-            log_msg._write_log_msg(msg + "\r\n")  
+            log_msg._write_log_msg(msg)  
         np.squeeze(data2D)
         self._data2D = data2D
         self._shape = data2D.shape
@@ -168,12 +170,15 @@ class GaussianERFFit:
                 right = i
                 break
         try:
-            if not [top, bottom, left, right] == [0,self._shape[0]-1,0,self._shape[1]-1]:
-                clippeddata2D = self._data2D[top:bottom, left:right]
-            else:    
-                clippeddata2D = self._data2D           
-                #output = GaussianERFFitException("%s have zero dose!"% "current layer")   
-                log_msg._write_log_msg("%s have zero dose!"% "current layer" + "\r\n")             
+            clippeddata2D = self._data2D[top:bottom, left:right]
+            #===================================================================
+            # if not [top, bottom, left, right] == [0,self._shape[0]-1,0,self._shape[1]-1]:
+            #     clippeddata2D = self._data2D[top:bottom, left:right]
+            # else:    
+            #     clippeddata2D = self._data2D           
+            #     #output = GaussianERFFitException("%s have zero dose!"% "current layer")   
+            #     log_msg._write_log_msg("%s have zero dose!"% "current layer")             
+            #===================================================================
         except:
             pass
         return top, bottom, left, right, clippeddata2D
@@ -225,14 +230,18 @@ if __name__ == "__main__" :
         if not i.endswith("_Proton"):
             patients_benchMark.append(i)
         elif i.endswith("_Proton"):
-            patients_Proton.append(i)  
-            
+            patients_Proton.append(i) 
+             
+    if os.path.isfile(os.path.join(cur_dir,"log_msg.txt")):
+        os.remove(os.path.join(cur_dir,"log_msg.txt")) # remove the file
+                
     log_msg = GaussianERFFitException("log_msg.txt")   
          
     book = xlwt.Workbook(encoding="utf-8")
     excel_name = strftime("%Y-%m-%d %H:%M:%S", gmtime()).replace(':', '-')     # set as current time         
     for i in patients_benchMark:
         if os.path.isdir(os.path.join(cur_dir,i)):
+            log_msg._write_log_msg("Patient DATA Name: " + i)
             path_benchMark = os.path.join(os.path.join(cur_dir,i),"IDOSELocalFiles.1")  #TODO: transfer the file format use readfile.exe
             #process= subprocess.Popen(['cmd','/c',r'D:\TestData\cidose']) #subprocess.Popen(['cmd','/c',r'calc.exe'])
             #process.wait()
@@ -244,7 +253,7 @@ if __name__ == "__main__" :
             benchMarch_sigma = []  # [sigmaX,sigmaY]
             protonCS_sigma = []
             del_sigma = []
-            for lay_idx in range(0, lay_cnt, 1):  # loop for all the layers
+            for lay_idx in range(0, lay_cnt, 1):  # loop for all the layers                
                 data_2DbenchMark = ReadDada(path_benchMark, direction, lay_idx)
                 data_2Dproton = ReadDada(path_proton, direction, lay_idx)
                 
@@ -255,10 +264,8 @@ if __name__ == "__main__" :
                     if hasattr(axx_benchMarch, 'sigmaX'):
                         benchMarch_sigma.append([axx_benchMarch.sigmaX, axx_benchMarch.sigmaY])
                     else:
-                        benchMarch_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently
-                        #output = GaussianERFFitException("BenchData: both sigmaX and sigmaY are assigned to 0 due to current layer: %s have zero dose!"% lay_idx)
-                        #output.write_log_msg()
-                        log_msg._write_log_msg("BenchData: both sigmaX and sigmaY are assigned to 0 due to current layer: %s have zero dose!"% lay_idx + "\r\n" )   
+                        benchMarch_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently                        
+                        log_msg._write_log_msg("BenchData: both values of sigmaX and sigmaY are assigned to 0 due to current layer: %s have zero dose!"% lay_idx)   
                 except:
                     pass
                 
@@ -266,15 +273,12 @@ if __name__ == "__main__" :
                     if hasattr(axx_proton, 'sigmaX'):
                         protonCS_sigma.append([axx_proton.sigmaX, axx_proton.sigmaY])
                     else:
-                        protonCS_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently
-                        #output = GaussianERFFitException("Proton Data: both sigmaX and sigmaY are assigned to 0 due to current layer: %s have zero dose!"% lay_idx)
-                        #output.write_log_msg()
-                        log_msg._write_log_msg("Proton Data: both sigmaX and sigmaY are assigned to 0 due to current layer: %s have zero dose!" % lay_idx + "\r\n")    
+                        protonCS_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently                        
+                        log_msg._write_log_msg("Proton Data: both values of sigmaX and sigmaY are assigned to 0 due to current layer: %s have zero dose!" % lay_idx)    
                 except:
                     pass
                 
-                del_sigma.append([benchMarch_sigma[lay_idx][0] - protonCS_sigma[lay_idx][0], benchMarch_sigma[lay_idx][1] - protonCS_sigma[lay_idx][1]])                                    
-            
+                del_sigma.append([benchMarch_sigma[lay_idx][0] - protonCS_sigma[lay_idx][0], benchMarch_sigma[lay_idx][1] - protonCS_sigma[lay_idx][1]])   
             excel = WriteDada2Excel(book, benchMarch_sigma, protonCS_sigma, del_sigma, i)               
             excel.add_sheet()
             excel.write2_sheet()

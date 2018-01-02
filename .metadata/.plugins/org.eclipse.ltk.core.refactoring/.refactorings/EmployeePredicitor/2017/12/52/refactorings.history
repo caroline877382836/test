@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;EmployeePredicitor/run_Python27&apos; to &apos;run_Python27.py&apos;" description="Rename resource &apos;run_Python27&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="run_Python27" name="run_Python27.py" stamp="1514533486479" updateReferences="true"/>
+</session>

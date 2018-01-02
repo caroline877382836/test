@@ -1,0 +1,54 @@
+import numpy as np
+import os
+import struct
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+import elekta_dvt as dvt
+import elekta_dvt.model as model
+import elekta_dvt.plots as dvt_plot
+import elekta_dvt.dvt_io as dvt_io
+import elekta_dvt.dvt_config as dvt_config
+from elekta_dvt.calculators.gpumcd_calculator import GpumcdCalculator
+from elekta_dvt.model import Dose3D
+
+def read_binaryFile(path):
+    floatSize = 4
+    intSize = 4
+    f = open(path, 'rb')
+    width = f.read(intSize)
+    width = struct.unpack('L',width)
+    height = f.read(intSize)
+    height = struct.unpack('L',height)
+    depth = f.read(intSize)
+    depth = struct.unpack('L',depth)
+    
+    shape = np.array([width[0],height[0],depth[0]])
+    len = shape[0]*shape[1]*shape[2]
+    data = f.read(floatSize*len)    
+    data = struct.unpack(len.astype(str) + 'f',data)
+    data = np.array(data) # change tuple to array
+    data = data.reshape(shape[2],shape[1],shape[0]) #change to depth,height,width (Tra:width = x, height = z)
+    return data
+
+if __name__ == "__main__" :   
+    path_CS = 'D:\\TestData\\SingleSpot\\test_98_Proton\\PhysicalDose.00'
+    data_CS = read_binaryFile(path_CS)
+    doseLabel = 'Gaussian'
+# Generate a 3D point grid from the total size [mm] and the number of voxels.
+    point_grid = model.PointGrid3D.from_size(size_in_mm = [143.0,108.0,150.0], 
+                                             number_of_voxels = [data_CS.shape[0], data_CS.shape[1], data_CS.shape[2]], 
+                                             is_surface_at_zero = [False, False, False])
+    dose = Dose3D(data_CS)
+    
+    dose.x = point_grid.xs
+    dose.y = point_grid.ys
+    dose.z = point_grid.zs
+    
+    xIndex = np.int(dose.x.size/2)
+    yIndex = np.int(dose.y.size/2)
+    zIndex = np.int(dose.z.size/2)   #[80,3,80]
+####plot
+    dvt_plot.plot_line_doses_x(dose, yIndex, zIndex, doseLabel)  # line_dose_plots,line_plots
+    dvt_plot.plot_plane_dose_xz(dose, 3, doseLabel)
+    
