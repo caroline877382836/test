@@ -1,0 +1,16 @@
+
+def log(func):
+    def _print():
+        print "log_1"
+        return func
+    return _print
+
+
+
+@log   
+def func1(a,b):
+    return a + b
+
+if __init__ == "__main__":
+    func(1,2)
+    
