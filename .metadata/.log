@@ -3432,3 +3432,318 @@ Request: CompletionRequest[ editorFile:D:\workspace\EmployeePredicitor\test_deco
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+!SESSION 2018-01-08 10:11:08.686 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-01-08 10:11:38.145
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Cnxuacar'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2018-01-08 10:42:11.026
+!MESSAGE No repository found at http://download.eclipse.org/eclipse/updates/4.6.
+!SESSION 2018-01-15 14:18:46.637 -----------------------------------------------
+eclipse.buildId=4.6.3.M20170301-0400
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.javascript.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.javascript.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-01-15 14:19:09.255
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Cnxuacar'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.python.pydev.shared_core 4 4 2018-01-15 15:15:41.514
+!MESSAGE Unhandled: ExtSlice[dims=[Slice[lower=null, upper=null, step=null], Index[value=Name[id=index, ctx=Load, reserved=false]], Slice[lower=null, upper=null, step=null]]]
+!STACK 0
+java.lang.RuntimeException: Unhandled: ExtSlice[dims=[Slice[lower=null, upper=null, step=null], Index[value=Name[id=index, ctx=Load, reserved=false]], Slice[lower=null, upper=null, step=null]]]
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.unhandled_node(MakeAstValidForPrettyPrintingVisitor.java:106)
+	at org.python.pydev.parser.jython.ast.VisitorBase.visitExtSlice(VisitorBase.java:351)
+	at org.python.pydev.parser.jython.ast.ExtSlice.accept(ExtSlice.java:80)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitSubscript(MakeAstValidForPrettyPrintingVisitor.java:944)
+	at org.python.pydev.parser.jython.ast.Subscript.accept(Subscript.java:87)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleArguments(MakeAstValidForPrettyPrintingVisitor.java:1078)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitCall(MakeAstValidForPrettyPrintingVisitor.java:623)
+	at org.python.pydev.parser.jython.ast.Call.accept(Call.java:123)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleArguments(MakeAstValidForPrettyPrintingVisitor.java:1078)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitCall(MakeAstValidForPrettyPrintingVisitor.java:623)
+	at org.python.pydev.parser.jython.ast.Call.accept(Call.java:123)
+	at org.python.pydev.parser.jython.ast.Expr.traverse(Expr.java:77)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleSimpleNode(MakeAstValidForPrettyPrintingVisitor.java:898)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitExpr(MakeAstValidForPrettyPrintingVisitor.java:1069)
+	at org.python.pydev.parser.jython.ast.Expr.accept(Expr.java:71)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFor(MakeAstValidForPrettyPrintingVisitor.java:458)
+	at org.python.pydev.parser.jython.ast.For.accept(For.java:112)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.makeValid(MakeAstValidForPrettyPrintingVisitor.java:172)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getDocstringHover(PyDocstringTextHover.java:132)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getHoverInfo(PyDocstringTextHover.java:58)
+	at org.python.pydev.editor.hover.PydevCombiningHover.getHoverInfo(PydevCombiningHover.java:141)
+	at org.python.pydev.editor.hover.PyEditorTextHoverProxy.getHoverInfo(PyEditorTextHoverProxy.java:59)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:167)
+
+!ENTRY org.python.pydev.shared_core 4 4 2018-01-15 15:15:41.564
+!MESSAGE String index out of range: -4
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: -4
+	at org.python.pydev.shared_core.string.FastStringBuffer.delete(FastStringBuffer.java:522)
+	at org.python.pydev.parser.prettyprinterv2.WriteStateV2.dedent(WriteStateV2.java:64)
+	at org.python.pydev.parser.prettyprinterv2.PrettyPrinterV2.writeLinePart(PrettyPrinterV2.java:252)
+	at org.python.pydev.parser.prettyprinterv2.PrettyPrinterV2.print(PrettyPrinterV2.java:170)
+	at org.python.pydev.editor.hover.AbstractPyEditorTextHover.printAst(AbstractPyEditorTextHover.java:125)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getDocstringHover(PyDocstringTextHover.java:174)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getHoverInfo(PyDocstringTextHover.java:58)
+	at org.python.pydev.editor.hover.PydevCombiningHover.getHoverInfo(PydevCombiningHover.java:141)
+	at org.python.pydev.editor.hover.PyEditorTextHoverProxy.getHoverInfo(PyEditorTextHoverProxy.java:59)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:167)
+
+!ENTRY org.python.pydev.shared_core 4 4 2018-01-15 15:27:40.832
+!MESSAGE Unhandled: ExtSlice[dims=[Slice[lower=null, upper=null, step=null], Index[value=Name[id=index, ctx=Load, reserved=false]], Slice[lower=null, upper=null, step=null]]]
+!STACK 0
+java.lang.RuntimeException: Unhandled: ExtSlice[dims=[Slice[lower=null, upper=null, step=null], Index[value=Name[id=index, ctx=Load, reserved=false]], Slice[lower=null, upper=null, step=null]]]
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.unhandled_node(MakeAstValidForPrettyPrintingVisitor.java:106)
+	at org.python.pydev.parser.jython.ast.VisitorBase.visitExtSlice(VisitorBase.java:351)
+	at org.python.pydev.parser.jython.ast.ExtSlice.accept(ExtSlice.java:80)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitSubscript(MakeAstValidForPrettyPrintingVisitor.java:944)
+	at org.python.pydev.parser.jython.ast.Subscript.accept(Subscript.java:87)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleArguments(MakeAstValidForPrettyPrintingVisitor.java:1078)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitCall(MakeAstValidForPrettyPrintingVisitor.java:623)
+	at org.python.pydev.parser.jython.ast.Call.accept(Call.java:123)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleArguments(MakeAstValidForPrettyPrintingVisitor.java:1078)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitCall(MakeAstValidForPrettyPrintingVisitor.java:623)
+	at org.python.pydev.parser.jython.ast.Call.accept(Call.java:123)
+	at org.python.pydev.parser.jython.ast.Expr.traverse(Expr.java:77)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleSimpleNode(MakeAstValidForPrettyPrintingVisitor.java:898)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitExpr(MakeAstValidForPrettyPrintingVisitor.java:1069)
+	at org.python.pydev.parser.jython.ast.Expr.accept(Expr.java:71)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFor(MakeAstValidForPrettyPrintingVisitor.java:458)
+	at org.python.pydev.parser.jython.ast.For.accept(For.java:112)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.makeValid(MakeAstValidForPrettyPrintingVisitor.java:172)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getDocstringHover(PyDocstringTextHover.java:132)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getHoverInfo(PyDocstringTextHover.java:58)
+	at org.python.pydev.editor.hover.PydevCombiningHover.getHoverInfo(PydevCombiningHover.java:141)
+	at org.python.pydev.editor.hover.PyEditorTextHoverProxy.getHoverInfo(PyEditorTextHoverProxy.java:59)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:167)
+
+!ENTRY org.python.pydev.shared_core 4 4 2018-01-15 15:27:40.832
+!MESSAGE String index out of range: -4
+!STACK 0
+java.lang.StringIndexOutOfBoundsException: String index out of range: -4
+	at org.python.pydev.shared_core.string.FastStringBuffer.delete(FastStringBuffer.java:522)
+	at org.python.pydev.parser.prettyprinterv2.WriteStateV2.dedent(WriteStateV2.java:64)
+	at org.python.pydev.parser.prettyprinterv2.PrettyPrinterV2.writeLinePart(PrettyPrinterV2.java:252)
+	at org.python.pydev.parser.prettyprinterv2.PrettyPrinterV2.print(PrettyPrinterV2.java:170)
+	at org.python.pydev.editor.hover.AbstractPyEditorTextHover.printAst(AbstractPyEditorTextHover.java:125)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getDocstringHover(PyDocstringTextHover.java:174)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getHoverInfo(PyDocstringTextHover.java:58)
+	at org.python.pydev.editor.hover.PydevCombiningHover.getHoverInfo(PydevCombiningHover.java:141)
+	at org.python.pydev.editor.hover.PyEditorTextHoverProxy.getHoverInfo(PyEditorTextHoverProxy.java:59)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:167)
+
+!ENTRY org.python.pydev.shared_core 1 1 2018-01-15 15:41:28.032
+!MESSAGE No existing console history at: D:\workspace\.metadata\.plugins\org.python.pydev.shared_interactive_console\history.py
+!STACK 0
+java.io.FileNotFoundException: D:\workspace\.metadata\.plugins\org.python.pydev.shared_interactive_console\history.py (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at java.io.FileReader.<init>(Unknown Source)
+	at org.python.pydev.shared_interactive_console.console.ScriptConsoleGlobalHistory.load(ScriptConsoleGlobalHistory.java:96)
+	at org.python.pydev.shared_interactive_console.console.ScriptConsoleGlobalHistory.<init>(ScriptConsoleGlobalHistory.java:45)
+	at org.python.pydev.shared_interactive_console.console.ScriptConsoleGlobalHistory.<clinit>(ScriptConsoleGlobalHistory.java:37)
+	at org.python.pydev.shared_interactive_console.console.ScriptConsoleHistory.<init>(ScriptConsoleHistory.java:56)
+	at org.python.pydev.shared_interactive_console.console.ui.ScriptConsole.<init>(ScriptConsole.java:204)
+	at org.python.pydev.debug.newconsole.PydevConsole.<init>(PydevConsole.java:84)
+	at org.python.pydev.debug.newconsole.PydevDebugConsole.<init>(PydevDebugConsole.java:29)
+	at org.python.pydev.debug.newconsole.PydevConsoleFactory.createDebugConsole(PydevConsoleFactory.java:284)
+	at org.python.pydev.debug.newconsole.PydevConsoleFactory.createDebugConsole(PydevConsoleFactory.java:259)
+	at org.python.pydev.debug.console.PromptOverlay.<init>(PromptOverlay.java:77)
+	at org.python.pydev.debug.console.PromptOverlayConsolePageParticipant.init(PromptOverlayConsolePageParticipant.java:48)
+	at org.eclipse.ui.internal.console.ConsoleView$3.run(ConsoleView.java:326)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.console.ConsoleView.doCreatePage(ConsoleView.java:323)
+	at org.eclipse.ui.part.PageBookView.createPage(PageBookView.java:400)
+	at org.eclipse.ui.part.PageBookView.partActivated(PageBookView.java:743)
+	at org.eclipse.ui.internal.console.ConsoleView$4.run(ConsoleView.java:395)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:182)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4211)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3827)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1121)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1022)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:150)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:693)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:610)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:138)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+
+!ENTRY org.eclipse.jface 2 0 2018-01-15 15:42:04.756
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2018-01-15 15:42:04.756
+!MESSAGE A conflict occurred for CTRL+SHIFT+3:
+Binding(CTRL+SHIFT+3,
+	ParameterizedCommand(Command(org.eclipse.wst.jsdt.debug.ui.script.opensource,Open Source,
+		Shows the JavaScript source for the selected script element,
+		Category(org.eclipse.wst.jsdt.debug.ui.category,JavaScript Debug,Tooling for debugging JavaScript,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5cb96779,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.debug.ui.debugging,,,system)
+Binding(CTRL+SHIFT+3,
+	ParameterizedCommand(Command(org.python.pydev.editor.actions.uncomment,Python Uncomment,
+		Uncomments a python line (Removes # from the beggining of the line),
+		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6792d90f,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.python.pydev.ui.editor.scope,,,system)
+
+!ENTRY org.python.pydev.shared_core 4 4 2018-01-15 15:58:09.014
+!MESSAGE Unhandled: ExtSlice[dims=[Slice[lower=null, upper=null, step=null], Index[value=Name[id=index, ctx=Load, reserved=false]], Slice[lower=null, upper=null, step=null]]]
+!STACK 0
+java.lang.RuntimeException: Unhandled: ExtSlice[dims=[Slice[lower=null, upper=null, step=null], Index[value=Name[id=index, ctx=Load, reserved=false]], Slice[lower=null, upper=null, step=null]]]
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.unhandled_node(MakeAstValidForPrettyPrintingVisitor.java:106)
+	at org.python.pydev.parser.jython.ast.VisitorBase.visitExtSlice(VisitorBase.java:351)
+	at org.python.pydev.parser.jython.ast.ExtSlice.accept(ExtSlice.java:80)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitSubscript(MakeAstValidForPrettyPrintingVisitor.java:944)
+	at org.python.pydev.parser.jython.ast.Subscript.accept(Subscript.java:87)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleArguments(MakeAstValidForPrettyPrintingVisitor.java:1078)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitCall(MakeAstValidForPrettyPrintingVisitor.java:623)
+	at org.python.pydev.parser.jython.ast.Call.accept(Call.java:123)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleArguments(MakeAstValidForPrettyPrintingVisitor.java:1078)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitCall(MakeAstValidForPrettyPrintingVisitor.java:623)
+	at org.python.pydev.parser.jython.ast.Call.accept(Call.java:123)
+	at org.python.pydev.parser.jython.ast.Expr.traverse(Expr.java:77)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.handleSimpleNode(MakeAstValidForPrettyPrintingVisitor.java:898)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitExpr(MakeAstValidForPrettyPrintingVisitor.java:1069)
+	at org.python.pydev.parser.jython.ast.Expr.accept(Expr.java:71)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFor(MakeAstValidForPrettyPrintingVisitor.java:458)
+	at org.python.pydev.parser.jython.ast.For.accept(For.java:112)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitIfPart(MakeAstValidForPrettyPrintingVisitor.java:1144)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitIf(MakeAstValidForPrettyPrintingVisitor.java:1125)
+	at org.python.pydev.parser.jython.ast.If.accept(If.java:96)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.visitFunctionDef(MakeAstValidForPrettyPrintingVisitor.java:873)
+	at org.python.pydev.parser.jython.ast.FunctionDef.accept(FunctionDef.java:131)
+	at org.python.pydev.parser.prettyprinterv2.MakeAstValidForPrettyPrintingVisitor.makeValid(MakeAstValidForPrettyPrintingVisitor.java:172)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getDocstringHover(PyDocstringTextHover.java:132)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getHoverInfo(PyDocstringTextHover.java:58)
+	at org.python.pydev.editor.hover.PydevCombiningHover.getHoverInfo(PydevCombiningHover.java:141)
+	at org.python.pydev.editor.hover.PyEditorTextHoverProxy.getHoverInfo(PyEditorTextHoverProxy.java:59)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:167)
+
+!ENTRY org.python.pydev.shared_core 4 4 2018-01-15 16:35:20.574
+!MESSAGE Unable to read contents from: D:\workspace\.metadata\.plugins\org.python.pydev\v1_56mbx6gd66fc5hkol80707zyp\shell\__b_cutk4v7af1xg0o5696qq4c0md.top
+!STACK 0
+java.io.EOFException: Unexpected end of ZLIB input stream
+	at java.util.zip.InflaterInputStream.fill(Unknown Source)
+	at java.util.zip.InflaterInputStream.read(Unknown Source)
+	at java.util.zip.GZIPInputStream.read(Unknown Source)
+	at java.io.BufferedInputStream.fill(Unknown Source)
+	at java.io.BufferedInputStream.read1(Unknown Source)
+	at java.io.BufferedInputStream.read(Unknown Source)
+	at java.io.ObjectInputStream$PeekInputStream.read(Unknown Source)
+	at java.io.ObjectInputStream$PeekInputStream.readFully(Unknown Source)
+	at java.io.ObjectInputStream$BlockDataInputStream.readShort(Unknown Source)
+	at java.io.ObjectInputStream.readStreamHeader(Unknown Source)
+	at java.io.ObjectInputStream.<init>(Unknown Source)
+	at org.python.pydev.editor.codecompletion.revisited.modules.CompiledModule.getCached(CompiledModule.java:306)
+	at org.python.pydev.editor.codecompletion.revisited.modules.CompiledModule.getGlobalTokens(CompiledModule.java:532)
+	at org.python.pydev.editor.codecompletion.revisited.visitors.Definition.getDocstring(Definition.java:216)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getDocstringHover(PyDocstringTextHover.java:181)
+	at org.python.pydev.editor.hover.PyDocstringTextHover.getHoverInfo(PyDocstringTextHover.java:58)
+	at org.python.pydev.editor.hover.PydevCombiningHover.getHoverInfo(PydevCombiningHover.java:141)
+	at org.python.pydev.editor.hover.PyEditorTextHoverProxy.getHoverInfo(PyEditorTextHoverProxy.java:59)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:167)
+
+!ENTRY org.python.pydev.debug 4 4 2018-01-16 11:55:26.119
+!MESSAGE Unexpected error setting up the debugger
+!STACK 0
+java.net.SocketException: Socket operation on nonsocket: configureBlocking
+	at java.net.DualStackPlainSocketImpl.configureBlocking(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketAccept(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.accept(Unknown Source)
+	at java.net.PlainSocketImpl.accept(Unknown Source)
+	at java.net.ServerSocket.implAccept(Unknown Source)
+	at java.net.ServerSocket.accept(Unknown Source)
+	at org.python.pydev.debug.model.remote.ListenConnector.waitForConnection(ListenConnector.java:75)
+	at org.python.pydev.debug.model.remote.ListenConnector.run(ListenConnector.java:67)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY org.python.pydev.shared_core 2 2 2018-01-16 11:55:39.248
+!MESSAGE Warning: computed 51401 completions (trimming to 10000).
+Request: CompletionRequest[ editorFile:D:\workspace\EmployeePredicitor\elekta_plt_Dose1D.py activationToken: qualifier:st isInCalltip:false alreadyHasParams:false]
+!STACK 0
+java.lang.RuntimeException: Warning: computed 51401 completions (trimming to 10000).
+Request: CompletionRequest[ editorFile:D:\workspace\EmployeePredicitor\elekta_plt_Dose1D.py activationToken: qualifier:st isInCalltip:false alreadyHasParams:false]
+	at org.python.pydev.core.log.Log.logWarn(Log.java:70)
+	at org.python.pydev.editor.codecompletion.PyCodeCompletion.getCodeCompletionProposals(PyCodeCompletion.java:195)
+	at org.python.pydev.editor.codecompletion.PythonCompletionProcessor.getPythonProposals(PythonCompletionProcessor.java:229)
+	at org.python.pydev.editor.codecompletion.PythonCompletionProcessor.computeCompletionProposals(PythonCompletionProcessor.java:163)
+	at org.python.pydev.editor.simpleassist.SimpleAssistProcessor.computeCompletionProposals(SimpleAssistProcessor.java:279)
+	at org.eclipse.jface.text.contentassist.ContentAssistant$3.run(ContentAssistant.java:1931)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.jface.text.contentassist.ContentAssistant.computeCompletionProposals(ContentAssistant.java:1928)
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.computeProposals(CompletionProposalPopup.java:565)
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.access$16(CompletionProposalPopup.java:560)
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup$2.run(CompletionProposalPopup.java:494)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.jface.text.contentassist.CompletionProposalPopup.showProposals(CompletionProposalPopup.java:487)
+	at org.eclipse.jface.text.contentassist.ContentAssistant$AutoAssistListener$1.run(ContentAssistant.java:371)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:182)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4211)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3827)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$4.run(PartRenderingEngine.java:1121)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1022)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:150)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:693)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:336)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:610)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:148)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:138)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:388)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:673)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:610)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1519)
+
+!ENTRY org.python.pydev.shared_core 1 1 2018-01-16 16:42:41.790
+!MESSAGE Timeout for waiting for debug completions elapsed (3 seconds).
+!STACK 0
+java.lang.RuntimeException: Timeout for waiting for debug completions elapsed (3 seconds).
+	at org.python.pydev.core.log.Log.logInfo(Log.java:66)
+	at org.python.pydev.debug.newconsole.EvaluateDebugConsoleExpression.waitForCommand(EvaluateDebugConsoleExpression.java:109)
+	at org.python.pydev.debug.newconsole.PydevDebugConsoleCommunication$1.run(PydevDebugConsoleCommunication.java:126)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)

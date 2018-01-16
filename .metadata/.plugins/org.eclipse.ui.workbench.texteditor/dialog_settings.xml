@@ -2,14 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="\" key="selection"/>
+		<item value="\\" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="\\"/>
 			<item value="\"/>
+			<item value="\\"/>
 			<item value="//"/>
 			<item value="double"/>
 			<item value="readValue&lt;double&gt;( istreamBeamParam )"/>
@@ -18,8 +18,8 @@
 			<item value=" readString( istreamBeamParam );  "/>
 		</list>
 		<list key="replacehistory">
-			<item value="\"/>
 			<item value="\\"/>
+			<item value="\"/>
 			<item value="/"/>
 			<item value="#"/>
 			<item value=""/>
@@ -30,7 +30,7 @@
 		<item value="336" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="452" key="DIALOG_HEIGHT"/>
-		<item value="631" key="DIALOG_X_ORIGIN"/>
-		<item value="300" key="DIALOG_Y_ORIGIN"/>
+		<item value="1033" key="DIALOG_X_ORIGIN"/>
+		<item value="152" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

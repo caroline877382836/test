@@ -8,5 +8,6 @@ mysql|D:\workspace\EmployeePredicitor\mysql.py
 readJason|D:\workspace\EmployeePredicitor\readJason.py
 read_binaryFile|D:\workspace\EmployeePredicitor\read_binaryFile.py
 run_python27|D:\workspace\EmployeePredicitor\run_python27.py
+test_decorator|D:\workspace\EmployeePredicitor\test_decorator.py
 test_vtk|D:\workspace\EmployeePredicitor\test_vtk.py
 vtkWithNumpy|D:\workspace\EmployeePredicitor\vtkWithNumpy.py

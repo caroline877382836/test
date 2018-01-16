@@ -63,7 +63,12 @@ class WriteDada2Excel:  #each patient correspond to one sheet
             self._sheet.write(idx + 2, 4, self._del_sigma[idx][0])
             self._sheet.write(idx + 2, 5, self._del_sigma[idx][1])
     def save_sheet(self):
-        self._book.save(self._excel_name + ".xls")                
+        self._book.save(self._excel_name + ".xls")   
+        
+    def insert_image_into_excel(self,image):
+        self._sheet.set_column('A:A', 30)
+        self._sheet.write('A2', 'Insert an image in a cell:')
+        self._sheet.insert_image('B2', 'python.png')             
 
 class ReadDada:  
     def __init__(self,datapath,direction,Plane):
@@ -246,6 +251,7 @@ if __name__ == "__main__" :
             #process= subprocess.Popen(['cmd','/c',r'D:\TestData\cidose']) #subprocess.Popen(['cmd','/c',r'calc.exe'])
             #process.wait()
             #subprocess.check_call(['cidose'])  # no file output
+            
             proton_name = i + "_Proton"
             path_proton = os.path.join(os.path.join(cur_dir,proton_name),"PhysicalDose.00")
             data_2DbenchMark = ReadDada(path_benchMark, direction, 5)        
