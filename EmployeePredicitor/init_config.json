@@ -1,0 +1,57 @@
+{   
+	"dir_configuration":{
+		"patient_temp_dir": "D:/TestData/practice/patientData",  
+		"ED_temp_dir": "D:/TestData/practice/EDTemp",
+		"Machine_temp_dir": "D:/TestData/practice/MachineTemp",
+		"CS_exe_root":  "D:/TestData/practice/CS_exe/Release",
+		"Upsala_exe_root": "D:/TestData/practice/Upsala_exe/Monaco for 5.2P",
+		"out_put_dir": "D:/TestData/practice/out_put"
+	},	
+	"patient_cases":{
+		"patient_case_1":{
+			"patient_name": "test_grid_size",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case1",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"Grid_size": 2
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"patient_case_2":{
+			"patient_name": "test_multiplier_size",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case2",
+			"Machine_file_name": "tele2",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"Grid_size": 2
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		}
+	}
+}	
+
