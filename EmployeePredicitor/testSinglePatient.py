@@ -7,6 +7,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from xlsxwriter.workbook import Workbook
 import subprocess
 from time import gmtime, strftime
+import readJason
+import ParseSinglePatientConfig
+import shutil
+
 
 import elekta_dvt as dvt
 import elekta_dvt.model as model
@@ -22,6 +26,8 @@ from GaussianUtility import GaussianERFFitException
 from GaussianUtility import WriteDada2Excel
 from GaussianUtility import GaussianERFFit
 from GaussianUtility import ReadDada
+
+global patient_path_CS, exe_path_CS, exe_path_Upsala, machine_path_CS, ED_path_CS, output_path
 
 def read_binaryFile(path):
     floatSize = 4
@@ -177,18 +183,36 @@ def cal_sigma(path_benchMark,path_proton,direction,grid,brag_peak_CS):
             pass                
         del_sigma.append([axx_benchMarch.sigmaX - axx_proton.sigmaX, axx_benchMarch.sigmaY - axx_proton.sigmaY])    
     return  benchMarch_sigma, protonCS_sigma, del_sigma
-       
+
+def merge_patient_ED(patient_dir,ed_dir,output_dir):  
+    shutil.copyfile(patient_dir, output_dir)
+    shutil.copyfile(ed_dir, output_dir)
+     
+def init_paras(json_config_dir,jason_config_name):
+    data = readJason.ReadJason(json_config_dir,jason_config_name)
+    if (len(data._patients_config_lst)>0): 
+        patient_initi_cong = ParseSinglePatientConfig(data._patients_config_lst[0])
+    else:
+        patient_initi_cong = ParseSinglePatientConfig(data._patients_config_lst)
+    ### only test the first patient in the json config file
+    patient_path_CS = os.path.join(data._patient_path_CS, "test_98_Proton")
+    exe_path_CS = os.path.join(data._exe_path_CS, "ProtonScanning.exe")
+    exe_path_Upsala = os.path.join(data._exe_path_Upsala, "ProtonScanning.exe") ##TODO: change to upsala exe
+    machine_path_CS = data._machine_path_CS
+    ED_path_CS = data._ED_path_CS
+    output_path = data._output_path
+            
 if __name__ == "__main__" :  
+    
+    json_config_dir = 'D:\\TestData\\practice'     
+    jason_config_name = "init_config.json"
+    init_paras(json_config_dir,jason_config_name)
         
-    patient_path_CS = "D:/TestData/test_98_Proton/"
-    exe_path_CS = "D:/code/Jedi_Proton_CarbonScanning/x64/Release/ProtonScanning.exe"  
-    machine_path_CS = "C:/Users/Public/Documents/CMS/FocalData/Installation/2~myfolder/"
     ####TODO: change upsala parameters
     patient_path_Upsala = "D:/TestData/test_98_Upsala/"
     exe_path_Upsala = "D:/code/Jedi_Proton_CarbonScanning/x64/Release/ProtonScanning.exe"  
-    machine_path_Upsala = "C:/Users/Public/Documents/CMS/FocalData/Installation/2~myfolder/"
-    
-    output_excel_path = "D:/TestData/"
+    machine_path_Upsala = "C:/Users/Public/Documents/CMS/FocalData/Installation/2~myfolder/"    
+   
     #### setting parameters
     grid_size = 2
     Gy_2_CGy= 100
@@ -196,7 +220,7 @@ if __name__ == "__main__" :
     Num_of_fraction = 30
     scale_Monaco2DoseEngine = Gy_2_CGy*Num_of_fraction
     image_size = 24 
-    os.chdir(output_excel_path)
+    os.chdir(output_path)
     cur_dir = os.getcwd()       
     # TODO--  modify request file,save data to another folder
     

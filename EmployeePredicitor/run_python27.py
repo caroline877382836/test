@@ -163,8 +163,11 @@ def read3Ddose(filename):
 
 if __name__ == "__main__" :   
     
-    path_Upsala = 'D:\\TestData\\SingleSpot\\test_98\\IDOSELocalFiles.1'
-    path_CS = 'D:\\TestData\\SingleSpot\\test_98_Proton\\PhysicalDose.00'
+    #path_Upsala = 'D:\\TestData\\SingleSpot\\test_98\\IDOSELocalFiles.1'
+    #path_CS = 'D:\\TestData\\SingleSpot\\test_98_Proton\\PhysicalDose.00'
+    path_Upsala = 'C:\Users\Public\Documents\PTW\VeriSoft\Data\test_caro\Upsala\IDOSELocalFiles.1'
+    path_CS = 'C:\Users\Public\Documents\PTW\VeriSoft\Data\test_caro\CS\PhysicalDose.00'
+    
     beam_dir = "Height"    
     
     data_CS = read_binaryFile(path_CS)

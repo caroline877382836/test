@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="\\" key="selection"/>
+		<item value="worksheet" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="self._sheet"/>
 			<item value="\"/>
 			<item value="\\"/>
 			<item value="//"/>
@@ -15,9 +16,9 @@
 			<item value="readValue&lt;double&gt;( istreamBeamParam )"/>
 			<item value="readString( istreamBeamParam ); //opt"/>
 			<item value="readValue&lt;double&gt;( istreamBeamParam );"/>
-			<item value=" readString( istreamBeamParam );  "/>
 		</list>
 		<list key="replacehistory">
+			<item value="worksheet"/>
 			<item value="\\"/>
 			<item value="\"/>
 			<item value="/"/>

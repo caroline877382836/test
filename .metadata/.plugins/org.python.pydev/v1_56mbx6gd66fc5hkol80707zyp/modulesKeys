@@ -1,6 +1,8 @@
 MODULES_MANAGER_V2
 BaseHTTPServer|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\BaseHTTPServer.py
 Bastion|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\Bastion.py
+BeautifulSoup|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\BeautifulSoup.py
+BeautifulSoupTests|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\BeautifulSoupTests.py
 CGIHTTPServer|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\CGIHTTPServer.py
 Canvas|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\lib-tk\Canvas.py
 ConfigParser|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\ConfigParser.py
@@ -7065,7 +7067,6 @@ numpy.compat.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\si
 numpy.compat._inspect|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\compat\_inspect.py
 numpy.compat.py3k|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\compat\py3k.py
 numpy.compat.setup|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\compat\setup.py
-numpy.core
 numpy.core.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\core\__init__.py
 numpy.core._dummy|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\core\_dummy.pyd
 numpy.core._internal|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\core\_internal.py
@@ -7194,7 +7195,6 @@ numpy.fft.fftpack_lite|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\s
 numpy.fft.helper|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\fft\helper.py
 numpy.fft.info|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\fft\info.py
 numpy.fft.setup|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\fft\setup.py
-numpy.lib
 numpy.lib.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\lib\__init__.py
 numpy.lib._datasource|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\lib\_datasource.py
 numpy.lib._iotools|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\lib\_iotools.py
@@ -7237,7 +7237,6 @@ numpy.ma.testutils|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-
 numpy.ma.timer_comparison|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\ma\timer_comparison.py
 numpy.ma.version|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\ma\version.py
 numpy.matlib|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\matlib.py
-numpy.matrixlib
 numpy.matrixlib.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\matrixlib\__init__.py
 numpy.matrixlib.defmatrix|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\matrixlib\defmatrix.py
 numpy.matrixlib.setup|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\numpy\matrixlib\setup.py
@@ -9383,7 +9382,6 @@ scipy.odr.add_newdocs|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\si
 scipy.odr.models|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\scipy\odr\models.py
 scipy.odr.odrpack|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\scipy\odr\odrpack.py
 scipy.odr.setup|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\scipy\odr\setup.py
-scipy.optimize
 scipy.optimize.__init__|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\scipy\optimize\__init__.py
 scipy.optimize._basinhopping|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\scipy\optimize\_basinhopping.py
 scipy.optimize._cobyla|C:\Users\Cnxuacar\AppData\Local\Continuum\Anaconda2\lib\site-packages\scipy\optimize\_cobyla.pyd

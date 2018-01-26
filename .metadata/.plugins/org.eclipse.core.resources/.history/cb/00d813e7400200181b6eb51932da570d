@@ -1,0 +1,41 @@
+import requests
+import urllib2
+
+class spyder():
+    
+    def __init__(self, website_url):
+        self.url = website_url
+         
+    def open(self):
+        url = self.url
+        try:
+            request = urllib2.Request(url)
+            handle = urllib2.build_opener()
+        except IOError:
+            return None
+        return (request, handle)
+
+    def fetch(self):
+        request, handle = self.open()
+        self._addHeaders(request)
+        if handle:
+            try:
+                content = unicode(handle.open(request).read(), "utf-8",
+                        errors="replace")
+                soup = BeautifulSoup(content)
+                tags = soup('a')
+            except urllib2.HTTPError, error:
+                if error.code == 404:
+                    print >> sys.stderr, "ERROR: %s -> %s" % (error, error.url)
+                else:
+                    print >> sys.stderr, "ERROR: %s" % error
+                tags = []
+            except urllib2.URLError, error:
+                print >> sys.stderr, "ERROR: %s" % error
+                tags = []
+            for tag in tags:
+                href = tag.get("href")
+                if href is not None:
+                    url = urlparse.urljoin(self.url, escape(href))
+                    if url not in self:
+                        self.urls.append(url)

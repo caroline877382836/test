@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from xlsxwriter.workbook import Workbook
 import subprocess
+import scipy
+from scipy import ndimage
 
 import elekta_dvt as dvt
 import elekta_dvt.model as model
@@ -15,6 +17,7 @@ import elekta_dvt.dvt_config as dvt_config
 from elekta_dvt.calculators.gpumcd_calculator import GpumcdCalculator
 from elekta_dvt.model import Dose3D
 from elekta_dvt.evaluation.gamma_index import calculate_gamma_index_3d
+from elekta_dvt.evaluation.gamma_index import calculate_gamma_index_profile
 from dask.dataframe.tests.test_rolling import idx
 
 def read_binaryFile(path):
@@ -69,6 +72,9 @@ if __name__ == "__main__" :
     path_CS = 'C:\\Users\\Public\\Documents\\PTW\\VeriSoft\\Data\\test_caro\\CS\\PhysicalDose.00'
     path_Upsala = 'C:\\Users\\Public\\Documents\\PTW\\VeriSoft\\Data\\test_caro\\Upsala\\IDOSELocalFiles.1'
     
+    #path_CS = 'C:\\Users\\Public\\Documents\\PTW\\VeriSoft\\Data\\test_caro\\CS\\PhysicalDose.00'
+    #path_Upsala = 'C:\\Users\\Public\\Documents\\PTW\\VeriSoft\\Data\\test_caro\\Upsala\\IDOSELocalFiles.1'
+    
     #===========================================================================
     # filepath="D:/TestData/ProtonScanDose.bat"
     # p = subprocess.Popen(filepath, shell=True, stdout = subprocess.PIPE)
@@ -103,7 +109,10 @@ if __name__ == "__main__" :
     Num_of_fraction = 30 
     Gy_2_CGy= 100   
     data_CS = read_binaryFile(path_CS)
-    data_CS = np.multiply(Num_of_fraction * Gy_2_CGy, data_CS)
+    data_CS = np.multiply(Num_of_fraction * Gy_2_CGy, data_CS)  
+     
+    #linear_interpolate_data_CS = scipy.ndimage.interpolation.zoom(data_CS, zoom=new_rescale_size, mode='nearest')
+    
     IDD_CS = Cal_IDD(data_CS,BeamDirection)
     brag_peak_CS = find_blagPeak(IDD_CS)
     plot_idd(IDD_CS)
@@ -127,27 +136,34 @@ if __name__ == "__main__" :
     xIndex = np.int(dose_CS.x.size/2)
     yIndex = np.int(dose_CS.y.size/2)
     zIndex = np.int(dose_CS.z.size/2)   #[80,3,80]
+    
+     #### linear interpolation: 
+    new_rescale_size = [2,2,2]
+    point_grid_rescale = model.PointGrid3D.from_size(size_in_mm , 
+                                             number_of_voxels = [new_rescale_size[0]*data_CS.shape[0], new_rescale_size[1]*data_CS.shape[1], new_rescale_size[2]*data_CS.shape[2]], 
+                                             is_surface_at_zero = [False, False, False])
+    #### apply interpolation method
+    interpolation_grid = [point_grid_rescale.xs,point_grid_rescale.ys,point_grid_rescale.zs]
+    # can not be used, due to means copy a 3d_data into the same shape of grid
+    interpolated_dose_CS = model.Dose3D.interpolate_dose(dose_CS, interpolation_grid) ###
+    interpolated_dose_Upsala = model.Dose3D.interpolate_dose(dose_Upsala, interpolation_grid)
+    
     ####plot
     if BeamDirection.lower() == "height":
         dvt_plot.plot_line_doses_x(dose_CS, brag_peak_CS, zIndex, doseLabel)  # line_dose_plots,line_plots
-        pylab.savefig("plot line brag_peak:" + brag_peak_CS + zIndex)
         dvt_plot.plot_plane_dose_xz(dose_CS, brag_peak_CS, doseLabel) # plane_dose_plots
-        pylab.savefig("plot plane brag_peak:" + brag_peak_CS)
     elif BeamDirection.lower() == "width": # Tran plane in Monaco-x direction   
         dvt_plot.plot_line_doses_x(dose_CS, yIndex, brag_peak_CS, doseLabel)  # line_dose_plots,line_plots
-        pylab.savefig("plot line brag_peak:" + brag_peak_CS + zIndex)
         dvt_plot.plot_plane_dose_xy(dose_CS, brag_peak_CS, doseLabel) # plane_dose_plots
-        pylab.savefig("plot plane brag_peak:" + brag_peak_CS)
         
     doses = [dose_CS, dose_Upsala]
     doseLabels = ['CS', 'Upsala']
     dvt_plot.plot_line_diff_hist_x(doses, brag_peak_CS, zIndex, 20, doseLabels)
-    pylab.savefig("plot line diff hist:" + brag_peak_CS + zIndex)
     dvt_plot.plot_plane_diff_hist_xz(doses, brag_peak_CS, 20, doseLabels) # dose_diff_histogram
-    pylab.savefig("plot plane brag_peak:" + brag_peak_CS)
+    
     # calc gamma index
-    delta_distance_in_mm = 1       #Enter tolerance distance (mm):
-    delta_dose_percentage = 1     #Enter tolerance level (%):  
+    delta_distance_in_mm = 2       #Enter tolerance distance (mm):
+    delta_dose_percentage = 2     #Enter tolerance level (%):  
     ratio_voxels_within_tolerance = 90/100.  #Enter ratio of voxels to be within the tolerance for the test to pass
     search_radius = 5
     result_as_booleans = False
@@ -158,13 +174,31 @@ if __name__ == "__main__" :
                                         search_radius, 
                                         result_as_booleans,
                                         ratio_voxels_within_tolerance)
+    ### calc gammer result after linear interpolated dose
+    gamma_result_interpolate = calculate_gamma_index_3d(interpolated_dose_Upsala,
+                                        interpolated_dose_CS, 
+                                        delta_distance_in_mm/2, 
+                                        delta_dose_percentage/100., 
+                                        search_radius, 
+                                        result_as_booleans,
+                                        ratio_voxels_within_tolerance)
     gamma_result_label = 'Gamma index'
     gamma_result_container = gamma_result._gamma_result_container
     gamma_result_xIndex = np.int(gamma_result_container.x.size/2)
     gamma_result_yIndex = np.int(gamma_result_container.y.size/2)
     gamma_result_zIndex = np.int(gamma_result_container.z.size/2)
     
-    #dvt_plot.interact_line_gamma_index(gamma_result_container, gamma_result_label)
+    #### The gamma index calculation use nearest neighbor interpolation in test dose
+    GammaProfileResult = calculate_gamma_index_profile(dose_Upsala,
+                                  dose_CS,
+                                  delta_distance_in_mm,
+                                  delta_dose_percentage/100.,
+                                  ratio_voxels_within_tolerance,
+                                  low_cut_off=0.01, 
+                                  high_cut_off=1.0,
+                                  calculate_level2_pass=False)    
+      
+    dvt_plot.interact_line_gamma_index(gamma_result_container, gamma_result_label)
     dvt_plot.plot_line_gamma_index_y(gamma_result_container, gamma_result_xIndex, gamma_result_zIndex, gamma_result_label)
 
     
