@@ -1,0 +1,45 @@
+
+class WriteDada2Excel:  #each patient correspond to one sheet
+    def __init__(self,book):   # init create excel file: if exits / not
+        self._book = book
+        self._benchMarch_sigma =  benchMarch_sigma
+        self._protonCS_sigma =  protonCS_sigma       
+        self._del_sigma = del_sigma  #list[sigmaX,sigmaY]    
+       
+    
+    def add_sheet(self,testPatientName):
+        #Add a sheet with one line of data  
+        value = "This sheet with patient named: %s" % testPatientName
+        book = self._book
+        sheet = book.add_sheet(testPatientName)
+        sheet.write(0,0, value)
+        sheet.write(0, 1, "total_LayerCnt : %s" %  len(self._benchMarch_sigma))
+        self._sheet = sheet
+    
+    def write_sigmas_2_sheet(self,benchMarch_sigma, protonCS_sigma, del_sigma):  
+        self._sheet.write(1, 0, "benchMarch_sigmaX") 
+        self._sheet.write(1, 1, "benchMarch_sigmaY") 
+        self._sheet.write(1, 2, "protonCS_sigmaX") 
+        self._sheet.write(1, 3, "protonCS_sigmaY")
+        self._sheet.write(1, 4, "delta_sigmaX")  # bench - Proton
+        self._sheet.write(1, 5, "delta_sigmaY") 
+        for idx in range(0,len(benchMarch_sigma),1):
+            self._sheet.write(idx + 2, 0, benchMarch_sigma[idx][0])
+            self._sheet.write(idx + 2, 1, benchMarch_sigma[idx][1])
+            self._sheet.write(idx + 2, 2, protonCS_sigma[idx][0])
+            self._sheet.write(idx + 2, 3, protonCS_sigma[idx][1])
+            self._sheet.write(idx + 2, 4, del_sigma[idx][0])
+            self._sheet.write(idx + 2, 5, del_sigma[idx][1])
+            
+    def save_sheet(self):
+        self._book.save(self._excel_name + ".xls")   
+        
+    def insert_image_into_excel(self,image):
+        self._sheet.set_column('A:A', 30)
+        self._sheet.write('A2', 'Insert an image in a cell:')
+        self._sheet.insert_image('B2', 'python.png') 
+          
+    def insert_image2Excel(self,worksheet,raw,column,msg,img_path):
+        worksheet.write(raw,column, msg)
+        worksheet.insert_image(raw + 20, column,img_path,{'x_scale': 0.5, 'y_scale': 0.5})
+        return 0  

@@ -1,0 +1,19 @@
+
+def read_binaryFile(path):
+    floatSize = 4
+    intSize = 4
+    f = open(path, 'rb')
+    width = f.read(intSize)
+    width = struct.unpack('L',width)
+    height = f.read(intSize)
+    height = struct.unpack('L',height)
+    depth = f.read(intSize)
+    depth = struct.unpack('L',depth)
+    
+    shape = np.array([width[0],height[0],depth[0]])
+    len = shape[0]*shape[1]*shape[2]
+    data = f.read(floatSize*len)    
+    data = struct.unpack(len.astype(str) + 'f',data)
+    data = np.array(data) # change tuple to array
+    data = data.reshape(shape[2],shape[1],shape[0]) #change to depth,height,width (Tra:width = x, height = z)
+    return data

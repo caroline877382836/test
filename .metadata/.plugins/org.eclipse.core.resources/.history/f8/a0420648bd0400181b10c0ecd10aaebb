@@ -1,0 +1,40 @@
+import struct
+import numpy as np
+
+class CalcSigmaX_Y():
+    
+    def __init__(self,ref_dose_path,new_dose_path,brag_peak_idx):
+        self.path = path
+        
+        self.data = self.read_binaryFile()
+        
+    def cal_sigma(path_benchMark,path_proton,direction,grid,brag_peak_CS):
+        data_2DbenchMark = ReadDada(path_benchMark, direction, 5)        
+        lay_cnt = data_2DbenchMark._layer_cnt
+        benchMarch_sigma = []  # [sigmaX,sigmaY]
+        protonCS_sigma = []
+        del_sigma = []
+        for lay_idx in range(max(0,brag_peak_CS - 10), brag_peak_CS + 10, 1):  # loop for all the layers                
+            data_2DbenchMark = ReadDada(path_benchMark, direction, lay_idx)
+            data_2Dproton = ReadDada(path_proton, direction, lay_idx)
+                    
+            axx_benchMarch = GaussianERFFit(data_2DbenchMark._data2D, grid)
+            axx_proton = GaussianERFFit(data_2Dproton._data2D, grid)
+                     
+            try:                    
+                if hasattr(axx_benchMarch, 'sigmaX'):
+                    benchMarch_sigma.append([axx_benchMarch.sigmaX, axx_benchMarch.sigmaY])
+                else:
+                    benchMarch_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently
+            except:
+                pass
+                    
+            try:
+                if hasattr(axx_proton, 'sigmaX'):
+                    protonCS_sigma.append([axx_proton.sigmaX, axx_proton.sigmaY])
+                else:
+                    protonCS_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently
+            except:
+                pass                
+            del_sigma.append([axx_benchMarch.sigmaX - axx_proton.sigmaX, axx_benchMarch.sigmaY - axx_proton.sigmaY])    
+        return  benchMarch_sigma, protonCS_sigma, del_sigma

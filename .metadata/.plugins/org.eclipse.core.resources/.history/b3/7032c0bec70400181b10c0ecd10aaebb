@@ -1,0 +1,74 @@
+import struct
+import numpy as np
+from ReadDose import ReadCSDose
+from GaussianErrorFit import GaussianERFFit
+
+class CalcSigmaX_Y():
+    
+    def __init__(self,ref_dose_path,new_dose_path):
+        self.ref_dose_path = ref_dose_path
+        self.new_dose_path = new_dose_path
+       
+    def Get_Dose3D(self): 
+        path_benchMark =  self.ref_dose_path
+        path_proton = self.new_dose_path
+        self.data_3DbenchMark = ReadCSDose(path_benchMark)
+        self.data_3Dproton =  ReadCSDose(path_proton) 
+         
+    def Get_sigmas_of_allLayers(self,grid,BeamDirection):        
+        data_3DbenchMark = self.data_3DbenchMark
+        data_3Dproton =  self.data_3Dproton      
+        lay_cnt = data_3DbenchMark.Get_layCnt(BeamDirection)
+        benchMarch_sigma = []  # [sigmaX,sigmaY]
+        protonCS_sigma = []
+        del_sigma = []
+        for lay_idx in range(0, lay_cnt, 1):  # loop for all the layers                
+            data_2DbenchMark = data_3DbenchMark.Get_Dose2D_with_LayerIdx(lay_idx, BeamDirection)
+            data_2Dproton = data_3Dproton.Get_Dose2D_with_LayerIdx(lay_idx, BeamDirection)
+                    
+            axx_benchMarch = GaussianERFFit(data_2DbenchMark, grid)
+            axx_proton = GaussianERFFit(data_2Dproton, grid)
+                     
+            try:                    
+                if hasattr(axx_benchMarch, 'sigmaX'):
+                    benchMarch_sigma.append([axx_benchMarch.sigmaX, axx_benchMarch.sigmaY])
+                else:
+                    benchMarch_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently
+            except:
+                pass
+                    
+            try:
+                if hasattr(axx_proton, 'sigmaX'):
+                    protonCS_sigma.append([axx_proton.sigmaX, axx_proton.sigmaY])
+                else:
+                    protonCS_sigma.append([0, 0]) # zero dose case: assign to sigmaX and sigmaY to 0 currently
+            except:
+                pass                
+            del_sigma.append([axx_benchMarch.sigmaX - axx_proton.sigmaX, axx_benchMarch.sigmaY - axx_proton.sigmaY])    
+        return  benchMarch_sigma, protonCS_sigma, del_sigma
+    
+    def Get_sigmas_of_singleLayer(self, lay_idx, BeamDirection):
+            data_3DbenchMark = self.data_3DbenchMark
+            data_3Dproton = self.data_3Dproton 
+            data_2DbenchMark = data_3DbenchMark.Get_Dose2D_with_LayerIdx(lay_idx, BeamDirection)
+            data_2Dproton = data_3Dproton.Get_Dose2D_with_LayerIdx(lay_idx, BeamDirection)
+                    
+            axx_benchMarch = GaussianERFFit(data_2DbenchMark, grid)
+            axx_proton = GaussianERFFit(data_2Dproton, grid)
+                     
+            try:                    
+                if hasattr(axx_benchMarch, 'sigmaX'):
+                    benchMarch_sigma.append([axx_benchMarch.sigmaX, axx_benchMarch.sigmaY])
+                else:
+                    benchMarch_sigma.append([0, 0])  # zero dose case: assign to sigmaX and sigmaY to 0 currently
+            except:
+                pass
+                    
+            try:
+                if hasattr(axx_proton, 'sigmaX'):
+                    protonCS_sigma.append([axx_proton.sigmaX, axx_proton.sigmaY])
+                else:
+                    protonCS_sigma.append([0, 0])  # zero dose case: assign to sigmaX and sigmaY to 0 currently
+            except:
+                pass                
+            del_sigma.append([axx_benchMarch.sigmaX - axx_proton.sigmaX, axx_benchMarch.sigmaY - axx_proton.sigmaY]) 
