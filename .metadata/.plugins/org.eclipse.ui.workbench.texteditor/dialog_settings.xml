@@ -2,36 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="worksheet" key="selection"/>
+		<item value="pylab" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="pylab"/>
+			<item value="sheet_raw_idx"/>
+			<item value="book"/>
+			<item value="mdhms"/>
+			<item value="ReadDada"/>
+			<item value="read_binaryFile"/>
+			<item value="key_values"/>
 			<item value="self._sheet"/>
-			<item value="\"/>
-			<item value="\\"/>
-			<item value="//"/>
-			<item value="double"/>
-			<item value="readValue&lt;double&gt;( istreamBeamParam )"/>
-			<item value="readString( istreamBeamParam ); //opt"/>
-			<item value="readValue&lt;double&gt;( istreamBeamParam );"/>
 		</list>
 		<list key="replacehistory">
+			<item value="plt"/>
+			<item value="ReadCSDose"/>
+			<item value="values"/>
 			<item value="worksheet"/>
 			<item value="\\"/>
 			<item value="\"/>
 			<item value="/"/>
 			<item value="#"/>
-			<item value=""/>
-			<item value="patientData"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="336" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="452" key="DIALOG_HEIGHT"/>
-		<item value="1033" key="DIALOG_X_ORIGIN"/>
-		<item value="152" key="DIALOG_Y_ORIGIN"/>
+		<item value="1245" key="DIALOG_X_ORIGIN"/>
+		<item value="274" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

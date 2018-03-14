@@ -56,7 +56,7 @@ class CalcSigmaX_Y():
                 protonCS_sigma = [0, 0]  # zero dose case: assign to sigmaX and sigmaY to 0 currently
         except:
             pass                
-        del_sigma = [axx_benchMarch.sigmaX - axx_proton.sigmaX, axx_benchMarch.sigmaY - axx_proton.sigmaY]
+        del_sigma = [benchMarch_sigma[0] - protonCS_sigma[0], benchMarch_sigma[1] - protonCS_sigma[1]]
         return benchMarch_sigma,protonCS_sigma,del_sigma
     
     # loop for all the layers,[brag_peak_idx - half_layer_cnt,brag_peak_idx + half_layer_cnt]
@@ -75,4 +75,30 @@ class CalcSigmaX_Y():
             protonCS_sigma.append(protonCS_sigma_temp)
             del_sigma.append(del_sigma_temp)            
         return  benchMarch_sigma, protonCS_sigma, del_sigma
-            
+    
+    # for special case: the brag_peak_idx + half_layer_cnt > len_IDD_CS
+    def Get_sigmas_of_multi_Layers_avoid_transgression(self,BeamDirection,brag_peak_idx,len_IDD_CS,multi_layer_cnt):    
+        half_layer_cnt = int(np.math.ceil(multi_layer_cnt/2))      
+        data_3DbenchMark, data_3Dproton = self.Get_Dose3D()
+        benchMarch_sigma = []  # [sigmaX,sigmaY]
+        protonCS_sigma = []
+        del_sigma = []
+        for lay_idx in range(max(0,brag_peak_idx - half_layer_cnt), min(brag_peak_idx + half_layer_cnt,len_IDD_CS), 1):
+            benchMarch_sigma_temp, protonCS_sigma_temp, del_sigma_temp = self.Get_sigmas_of_single_Layer(data_3DbenchMark, 
+                                                                                       data_3Dproton, 
+                                                                                       lay_idx, 
+                                                                                       BeamDirection)              
+            benchMarch_sigma.append(benchMarch_sigma_temp)
+            protonCS_sigma.append(protonCS_sigma_temp)
+            del_sigma.append(del_sigma_temp)            
+        return  benchMarch_sigma, protonCS_sigma, del_sigma
+    
+    def Calc_sigmas_statistical_probability(self,del_sigma):
+        cnt = 0
+        for idx in range(0,del_sigma.size,1):
+            for i , j in del_sigma[idx]:
+                if abs(i) >= 0.01 | abs(j) >= 0.01:
+                    cnt += 1
+        return cnt, cnt/del_sigma.size
+                    
+                   

@@ -1,9 +1,0 @@
-import requests
-
-class spyder():
-    
-     def __init__(self, website_url):
-         self.url = website_url
-         
-     def spyder(self):
-        

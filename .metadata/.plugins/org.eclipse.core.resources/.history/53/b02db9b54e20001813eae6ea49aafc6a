@@ -1,0 +1,261 @@
+# -*- coding: utf-8 -*-
+import numpy as np
+import os
+import sys
+import struct
+import shutil
+import pylab
+import collections
+import matplotlib.pyplot as plt
+from xlsxwriter.workbook import Workbook
+import subprocess
+from time import gmtime, strftime
+import readJason
+from readJason import ReadJason
+from readJason import ParseSinglePatientConfig
+from readJason import MergeFilesFromTwoFolder
+from Initi_Config_Parameters import InitParameters
+from ReadDose import ReadCSDose
+import CalcSigmaXY
+from CalcSigmaXY import CalcSigmaX_Y
+from WriteToExcel import WriteDada2Excel
+import xlwt
+import logging
+import time
+
+def Cal_IDD(data,BeamDirection):
+    data_shape = data.shape
+    idd = []
+    if BeamDirection.lower() == "height": # Tran plane in Monaco-z direction
+        for index in range(data_shape[1]):
+            idd.append(np.sum(data[:,index,:]))
+    elif BeamDirection.lower() == "width": # Tran plane in Monaco-x direction
+        for index in range(data_shape[2]):
+            idd.append(np.sum(data[:,:,index]))   
+    return idd 
+
+def find_blagPeak(idd):
+    max_value = max(idd)
+    for idx in range(len(idd)):
+        if idd[idx] == max_value:
+            brag_peak = idx
+    return brag_peak
+
+def plot_idd(idd,idd_path_name): 
+    plt.figure()       
+    plt.plot(idd, 'bo')  # 'r--','bs','g^': red dashes, blue squares and green triangles    
+    plt.savefig(idd_path_name)
+    plt.pause(1)
+    plt.close()
+
+
+def plot_idd_2(idd_CS,idd_Upsala,idd_path_name): 
+    plt.figure()
+    plt.plot(idd_CS,'r--', label='IDD_Proton Red')
+    plt.plot(idd_Upsala,'g--', label='IDD_Upsala Green')       
+    #plt.plot(idd_CS, 'bo',label = "IDD_CS",idd_Upsala,'g^',label = "IDD_Uppsala")  # 'r--','bs','g^': red dashes, blue squares and green triangles
+    plt.legend(loc='best', numpoints=1, handlelength=0)   
+    plt.savefig(idd_path_name)
+    plt.pause(1)
+    plt.close()
+
+def re_cal_dose(patient_path,exe_path,machine_path):
+    args = [exe_path, patient_path, machine_path]
+    subprocess.call(args)
+    
+def call_exe(args):
+    args = args
+    subprocess.call(args)
+
+def removeDir(dirPath):
+    if len(os.listdir(dirPath)) == 0:
+        return    
+    try:
+        for f in os.listdir(dirPath):             
+            filePath = os.path.join(dirPath, f)
+            if os.path.isfile(filePath):
+                os.remove(filePath)
+            elif os.path.isdir(filePath):
+                #removeDir(filePath)
+                shutil.rmtree(filePath)
+        logger.info('Cleaning up files successful') 
+    except Exception, e:
+        logger.error('Cleaning up files failed: Reason is: {}'.format(dirPath, str(e)), exc_info=True)
+        raise e
+              
+if __name__ == "__main__" :  
+
+    #### setting parameters
+    grid_size = 2    ## TODO: write a .py to read ProtonRequest file
+    BeamDirection = "height"  
+    #BeamDirection = "width" 
+    image_size = 24 
+    
+    #The string that gets the current system time
+    mdhms=time.strftime('%Y%m%d%H%M',time.localtime(time.time()))
+    logger = logging.getLogger(__name__)
+
+    json_config_dir = 'D:\\TestData\\practice'    
+    jason_config_name = "init_config_all.json"
+    try:
+        init_paras = InitParameters(json_config_dir,jason_config_name)
+        logger.info(jason_config_name+" Json file read successful")
+    except Exception,e:
+        logger.error('read Json file {}. failed: Reason is: {}'.format(jason_config_name, str(e)), exc_info=True)
+        raise e 
+    
+    os.chdir(init_paras.Jason_data._output_path)
+    cur_dir = os.getcwd()
+    removeDir(cur_dir)      
+
+    logging.basicConfig(level = logging.INFO,format = '%(asctime)s : %(name)s : %(levelname)s : %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S',
+                        filename=cur_dir+"\\"+mdhms+"_log",
+                        filemode="w")
+
+    excel_name = mdhms
+    try:     # set as current time
+        book = WriteDada2Excel(excel_name + '_output.xlsx')
+        logger.info("a new xls file with name "+excel_name + '_output.xlsx'+" create successful")
+    except Exception,e:
+        logger.error('create file {}. failed: Reason is: {}'.format(excel_name + '_output.xlsx', str(e)), exc_info=True)
+        raise e
+
+for i in range(len(init_paras.Jason_data._patients_config_lst)):
+    # get patient_case_name
+    patient_case_name=init_paras.Jason_data._patients_config_lst[i][0]
+    init_paras.init_single_patient_paras(patient_case_name) 
+    # modify Ptoton Request file   
+    patient_initi_cong_lst = init_paras.patient_change_condition_lst 
+    ModifyProtonRequestFile_args = [init_paras.Jason_data._ModifyProtonRequestFile_dir,
+                                    init_paras.patient_path_CS +  "ProtonRequest",
+                                    init_paras.patient_path_CS +  "ProtonRequest"]
+    for lst_item in patient_initi_cong_lst:
+            ModifyProtonRequestFile_args.append(str(lst_item[0]))
+            ModifyProtonRequestFile_args.append(str(lst_item[1]))
+    try:
+        call_exe(ModifyProtonRequestFile_args)
+        logger.info("modify CS proton request file successful for patient case: " + patient_case_name) 
+    except Exception,e:
+        logger.error('modify CS proton request file failed for patient case: {}, Reason is: {}'.format(patient_case_name,str(e)), exc_info=True)
+        raise e
+    
+    # Modify Upslala proton request file
+    ModifyProtonRequestFile_args = [init_paras.Jason_data._ModifyProtonRequestFile_dir,
+                                    init_paras.patient_path_Upsala +  "ProtonRequest",
+                                    init_paras.patient_path_Upsala +  "ProtonRequest",] 
+    
+    for lst_item in patient_initi_cong_lst:
+            ModifyProtonRequestFile_args.append(str(lst_item[0]))
+            ModifyProtonRequestFile_args.append(str(lst_item[1]))      
+    
+    try:
+        call_exe(ModifyProtonRequestFile_args)
+        logger.info("modify Upslala proton request file successful for patient case: " + patient_case_name) 
+    except Exception,e:
+        logger.error('modify Upslala proton request file failed for patient case: {}, Reason is: {}'.format(patient_case_name,str(e)), exc_info=True)
+        raise e
+    
+    # call ProtonScanning.exe to recal dose  
+    try: 
+        re_cal_dose(init_paras.patient_path_CS,init_paras.exe_path_CS,init_paras.machine_path_CS)
+        os.path.join(init_paras.patient_path_CS,"PhysicalDose.00")
+        data_CS = ReadCSDose(os.path.join(init_paras.patient_path_CS,"PhysicalDose.00")) 
+        logger.info("call ProtonScanning.exe to recal dose sucessful") 
+    except Exception,e:
+        logger.error('call ProtonScanning.exe to recal dose failed: Reason is: {}'.format(str(e)), exc_info=True)
+        raise e
+    
+    # change Proton request file  to Upsala format: RequestCS2UppsalaConvertor
+    RequestCS2UppsalaConvertor_args = [init_paras.Jason_data._RequestCS2UppsalaConvertor_dir,
+                                       init_paras.patient_path_Upsala + "ProtonRequest",
+                                       init_paras.patient_path_Upsala + "EffectiveDensity",                                      
+                                       init_paras.patient_path_Upsala + "RequestCS2UppsalaConvertor"] 
+    try:                                  
+        call_exe(RequestCS2UppsalaConvertor_args)
+        logger.info("change Proton request file  to Upsala format successful")
+    except Exception,e:
+        logger.error('change Proton request file to Upsala format failed: Reason is: {}'.format(str(e)), exc_info=True)
+        raise e
+    #call upsala exe
+    Upsala_exe_args = [init_paras.exe_path_Upsala,
+                       "ProtonPencilBeamAlgorithm",
+                       init_paras.patient_path_Upsala,
+                       "RequestCS2UppsalaConvertor",
+                       "DoseResult"]
+    try:
+        call_exe(Upsala_exe_args) 
+        logger.info("call upsala exe successful")
+    except Exception,e:
+        logger.error('call upsala exe failed: Reason is: {}'.format(str(e)), exc_info=True)
+        raise e
+    #change Upsala dose to Proton dose format    
+    ResultUppsala2CSConvertor_args = [init_paras.Jason_data._ResultUppsala2CSConvertor_dir,
+                                      init_paras.patient_path_Upsala + 'DoseResult' + '.bin',
+                                      str(int(data_CS.Data3D.shape[2])),
+                                      str(int(data_CS.Data3D.shape[1])),
+                                      str(int(data_CS.Data3D.shape[0])),
+                                      init_paras.patient_path_Upsala + 'DoseResultUppsala.00']
+    try:                                  
+        call_exe(ResultUppsala2CSConvertor_args) 
+        logger.info("change Upsala dose to Proton dose format successful")
+    except Exception,e:
+        logger.error('change Upsala dose to Proton dose format failed: Reason is: {}'.format(str(e)), exc_info=True)
+        raise e                                 
+    
+    #data_CS = np.multiply(scale_Monaco2DoseEngine, data_CS.Data3D)
+    
+    IDD_CS = Cal_IDD(data_CS.Data3D,BeamDirection)
+    brag_peak_CS = find_blagPeak(IDD_CS)
+    
+        
+    sigmas = CalcSigmaX_Y(os.path.join(init_paras.patient_path_Upsala,"DoseResultUppsala.00"),
+                 os.path.join(init_paras.patient_path_CS,"PhysicalDose.00"),
+                 grid_size)
+    
+    [benchMarch_sigma, protonCS_sigma, del_sigma] = sigmas.Get_sigmas_of_multi_Layers_avoid_transgression(BeamDirection, brag_peak_CS,len(IDD_CS),20)    
+    
+    sheet_raw_idx = book.add_sheet(patient_case_name,len(benchMarch_sigma))
+    sheet_raw_idx = sheet_raw_idx      
+    sheet_raw_idx = book.write_sigmas_2_sheet(sheet_raw_idx,benchMarch_sigma, protonCS_sigma, del_sigma)
+    
+    try:
+        plot_idd(IDD_CS, os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_CS.png"))
+        sheet_raw_idx = book.insert_image2Excel(sheet_raw_idx, 0, "plot IDD_CS", os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_CS.png"))
+
+        data_Upsala = ReadCSDose(os.path.join(init_paras.patient_path_Upsala,"DoseResultUppsala.00"))
+        IDD_Upsala = Cal_IDD(data_Upsala.Data3D,BeamDirection)    
+        brag_peak_Upsala = find_blagPeak(IDD_Upsala)
+        plot_idd(IDD_Upsala,os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_Upsala.png"))
+        sheet_raw_idx = book.insert_image2Excel(sheet_raw_idx, 0, "plot IDD_Upsala", os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_Upsala.png")) 
+
+        plot_idd_2(IDD_CS,IDD_Upsala,os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_CS_Upsala.png"))
+        sheet_raw_idx = book.insert_image2Excel(sheet_raw_idx, 0, "plot IDD_CS_Upsala",os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_CS_Upsala.png"))
+        logger.info("create image and insert it to the sheet successful")
+    except Exception,e:
+        logger.error('create image and insert it to the sheet failed: Reason is: {}'.format(str(e)), exc_info=True)
+        raise e 
+
+    #write patient case detail infor to sheet
+    try:
+        patient_case_content=collections.OrderedDict
+        patient_case_content=init_paras.Jason_data._patients_config_lst[i][1]
+        sheet_raw_idx=book.write(sheet_raw_idx+2,0,"patient_case_name",patient_case_name)
+        for key in patient_case_content:
+            if(isinstance(patient_case_content[key],dict)):
+                sheet_raw_idx=book.write_single(sheet_raw_idx,0,str(key))
+                for i in patient_case_content[key]:
+                    sheet_raw_idx=book.write(sheet_raw_idx,1,str(i),(patient_case_content[key][i]))
+            else:
+                sheet_raw_idx=book.write(sheet_raw_idx,0,str(key),(patient_case_content[key]))
+        logger.info("write patient case content to sheet successful")
+    except Exception,e:
+        logger.error('write patient case content to sheet failed: Reason is: {}'.format(str(e)), exc_info=True)
+        raise e 
+book.save_book()
+
+
+
+   
+
+    

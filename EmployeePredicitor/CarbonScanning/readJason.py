@@ -10,6 +10,7 @@ class ReadJason(object):
         self.read()
         self.convert_patient_cases_dict_2_lst()
         self.parse_dir_configuration()
+        self.parse_ini_paras_configuration()
         
     # read json file   
     def read(self):
@@ -17,8 +18,21 @@ class ReadJason(object):
         with open(file_path) as f:
             self.data = json.load(f,encoding="UTF-8")
             self.dirs = self.data["dir_configuration"] 
+            self.ini_parameters = self.data["ini_paras_configuration"] 
             self.patient_cases_dict =  self.data["patient_cases"]
-             
+
+    def parse_ini_paras_configuration(self):
+        init_paras = self.ini_parameters 
+        if (len(init_paras.keys()) > 0):             
+            self._ini_grid_size = init_paras["ini_grid_size"]   
+            self._min_delta_sigma_accept = init_paras["min_delta_sigma_accept"]     
+            self._ini_IDD_acceptance = init_paras["ini_IDD_acceptance"]
+            self._mini_IDD_acceptPerc = init_paras["mini_IDD_acceptPerc"]
+            self._ini_Dose3D_acceptance = init_paras["ini_Dose3D_acceptance"]
+            self._mini_Dose3D_acceptPerc = init_paras["mini_Dose3D_acceptPerc"]
+            self._ini_Dose2DGaussian_acceptance = init_paras["ini_Dose2DGaussian_acceptance"]  
+            self._mini_Dose2DGaussian_acceptPerc = init_paras["mini_Dose2DGaussian_acceptPerc"]          
+
     def parse_dir_configuration(self): 
         confg_dir = self.dirs
         if (len(confg_dir.keys()) > 0):         
@@ -27,7 +41,10 @@ class ReadJason(object):
             self._Upsala_exe_root = confg_dir["Upsala_exe_root"]
             self._Machine_temp_dir = confg_dir["Machine_temp_dir"]
             self._ED_temp_dir = confg_dir["ED_temp_dir"]
-            self._output_path = confg_dir["out_put_dir"]   
+            self._output_path = confg_dir["out_put_dir"]
+            self._RequestCS2UppsalaConvertor_dir = confg_dir["RequestCS2UppsalaConvertor_dir"] + "\\" + 'RequestCS2UppsalaConvertor.exe'
+            self._ResultUppsala2CSConvertor_dir = confg_dir["ResultUppsala2CSConvertor_dir"]  + "\\" + 'ResultUppsala2CSConvertor.exe'
+            self._ModifyProtonRequestFile_dir = confg_dir["ModifyProtonRequestFile_dir"]  + "\\" + 'ModifyProtonRequestFile.exe'
  
     #convert dict to list         
     def convert_patient_cases_dict_2_lst(self):
@@ -54,7 +71,12 @@ class ParseSinglePatientConfig():
         self._ED_file_name = values["ED_file_name"]
         self._Machine_file_name = values["Machine_file_name"]
         self._BeamDirectons = values["Beam Directons"]
-        self._patient_change_condition = values["patient_change_condition"]      
+        patient_change_condition = values["patient_change_condition"]
+        if (len(patient_change_condition.keys()) > 0):
+            self.patient_change_conditions_lst = []
+            for key , value in patient_change_condition.iteritems():
+                temp = [key,value]
+                self.patient_change_conditions_lst.append(temp)   
           
         Gammer_initi_config = values["Gammer_initi_configuration"]
         if (len(Gammer_initi_config.keys()) > 0):
@@ -86,29 +108,34 @@ class MergeFilesFromTwoFolder():
         fl2_dir = self.Folder2_dir
         output_dir = self.OutPut_dir 
         if not os.path.exists(output_dir):
+            par_path = os.path.abspath(os.path.join(output_dir, os.pardir))
+            if not os.path.exists(par_path):
+                os.mkdir(par_path)               
             os.mkdir(output_dir)
             print 'Directory created at: ' + output_dir
             #loop through all files in the directory
         for f in os.listdir(fl1_dir): 
             #compute current (old) & new file locations
             oldLoc = fl1_dir + '\\' + f
-            newLoc = output_dir + '\\' + f           
-            if not os.path.isfile(newLoc):                
-                try:
-                    shutil.copy2(oldLoc, newLoc)
-                    print 'File ' + f + ' copied.'
-                except IOError:
-                    print 'file "' + f + '" already exists'
+            newLoc = output_dir + '\\' + f 
+            if os.path.isfile(newLoc):
+                os.remove(newLoc)          
+            try:
+                shutil.copy2(oldLoc, newLoc)
+                print 'File ' + f + ' copied.'
+            except IOError:
+                print 'file "' + f + '" already exists'
         for f in os.listdir(fl2_dir): 
             #compute current (old) & new file locations
             oldLoc = fl2_dir + '\\' + f
             newLoc = output_dir + '\\' + f           
-            if not os.path.isfile(newLoc):                
-                try:
-                    shutil.copy2(oldLoc, newLoc)
-                    print 'File ' + f + ' copied.'
-                except IOError:
-                    print 'file "' + f + '" already exists'      
+            if os.path.isfile(newLoc):
+                os.remove(newLoc)                
+            try:
+                shutil.copy2(oldLoc, newLoc)
+                print 'File ' + f + ' copied.'
+            except IOError:
+                print 'file "' + f + '" already exists'      
             
                    
         

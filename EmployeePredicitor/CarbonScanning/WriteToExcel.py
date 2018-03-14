@@ -17,6 +17,7 @@ class WriteDada2Excel:  #each patient correspond to one sheet
             os.remove(excel_name)
             logger.info('Delete the existing old excel file named:' + excel_name)        
         self._book = Workbook(excel_name)
+        self.book_format = self._book.add_format({'bold': True, 'font_color': 'red'})  
         self.raw_idx = 0
      
     def add_sheet(self,testPatientName,lay_cnt):
@@ -29,12 +30,12 @@ class WriteDada2Excel:  #each patient correspond to one sheet
         except Exception,e:
             logger.error('create new worksheet {}. failed: Reason is: {}'.format(testPatientName, str(e)), exc_info=True)
             raise e        
-        sheet.set_column('A:A', 20)
+        sheet.set_column('A:A', 30)
         #sheet.col_width(10)
         sheet.write(0,0, value)
         sheet.write(0, 1, "total_LayerCnt : %s" %  lay_cnt)
         self._sheet = sheet
-        raw_idx =  self.raw_idx + 1
+        raw_idx = 1
         self.raw_idx = raw_idx
         return raw_idx
      
@@ -50,17 +51,41 @@ class WriteDada2Excel:  #each patient correspond to one sheet
             self._sheet.write(raw_idx + idx + 2, 1, benchMarch_sigma[idx][1])
             self._sheet.write(raw_idx + idx + 2, 2, protonCS_sigma[idx][0])
             self._sheet.write(raw_idx + idx + 2, 3, protonCS_sigma[idx][1])
-            self._sheet.write(raw_idx + idx + 2, 4, del_sigma[idx][0])
-            self._sheet.write(raw_idx + idx + 2, 5, del_sigma[idx][1])
+            if abs(del_sigma[idx][0]) >= 0.01:
+                self._sheet.write(raw_idx + idx + 2, 4, del_sigma[idx][0], self.book_format)
+            else:
+                self._sheet.write(raw_idx + idx + 2, 4, del_sigma[idx][0])
+            if abs(del_sigma[idx][1]) >= 0.01:
+                self._sheet.write(raw_idx + idx + 2, 5, del_sigma[idx][1], self.book_format)
+            else:
+                self._sheet.write(raw_idx + idx + 2, 5, del_sigma[idx][1])
         raw_idx = raw_idx + len(benchMarch_sigma) + 2
         self.raw_idx = raw_idx
         return raw_idx 
              
-    def save_sheet(self):
-        self._book.close()  
+    def save_book(self):
+        try:
+            self._book.close()
+            logger.info("save excel file successful") 
+        except Exception,e:
+            logger.error('save excel file failed: Reason is: {}'.format(str(e)), exc_info=True)
+            raise e  
+        
+    def write(self,raw_idx,column,sheet_data,msg):             
+        self._sheet.write(raw_idx,column,sheet_data,self.book_format)
+        self._sheet.write(raw_idx,column+2,msg,self.book_format)
+        raw_idx=raw_idx+1
+        self.raw_idx=raw_idx
+        return raw_idx
+    
+    def write_single(self,raw_idx,column,msg):
+        self._sheet.write(raw_idx, column, msg, self.book_format)
+        raw_idx=raw_idx
+        self.raw_idx=raw_idx
+        return raw_idx  
            
     def insert_image2Excel(self,raw_idx,column,msg,img_path):
-        self._sheet.write(raw_idx,column, msg)
+        self._sheet.write(raw_idx,column + 3, msg, self.book_format)
         #self._sheet.insert_image('B2', 'C:\Users\Cnxuacar\Desktop\Figure_3.png',{'x_scale': 0.5, 'y_scale': 0.5})
         #Image.open(img_path).convert("RGB").save('violations.bmp') 
         #self._sheet.insert_bitmap('violations.bmp',5,13)
@@ -68,21 +93,4 @@ class WriteDada2Excel:  #each patient correspond to one sheet
         raw_idx = raw_idx + 25
         self.raw_idx = raw_idx
         return raw_idx
-                
-    
-#===============================================================================
-# if __name__ == "__main__" : 
-#     import os
-#     os.chdir("D:\TestData")
-#     book = WriteDada2Excel("te_output.xlsx")
-#     sheet_raw_idx = book.add_sheet("patient_case_9",3)
-#     sheet_raw_idx = book.insert_image2Excel(sheet_raw_idx, 0, 'msg', "D:\TestData\IDD.png")
-#     benchMarch_sigma = [[0,0],[1,1],[2,2]]
-#     protonCS_sigma = [[1,1],[2,2],[5,5]]
-#     del_sigma = [[2,2],[4,4],[6,6]]
-#     book.write_sigmas_2_sheet(sheet_raw_idx, benchMarch_sigma, protonCS_sigma, del_sigma)
-#     book.save_sheet()
-#     
-#===============================================================================
-    
             

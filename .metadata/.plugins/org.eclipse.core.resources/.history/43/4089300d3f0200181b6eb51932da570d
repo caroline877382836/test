@@ -1,5 +1,0 @@
-import requests
-
-class spyder():
-    
-     def __init__(self, website_dir):

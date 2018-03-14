@@ -1,0 +1,164 @@
+{   
+	"dir_configuration":{
+		"patient_temp_dir": "D:\\TestData\\practice\\patientDataTemp",  
+		"ED_temp_dir": "D:\\TestData\\practice\\EDTemp",
+		"Machine_temp_dir": "D:\\TestData\\practice\\MachineTemp",
+		"CS_exe_root":  "D:\\TestData\\practice\\CS_exe",
+		"Upsala_exe_root": "D:\\TestData\\practice\\Upsala_exe",
+		"out_put_dir": "D:\\TestData\\practice\\out_put",
+		"RequestCS2UppsalaConvertor_dir": "D:\\TestData\\practice",
+		"ResultUppsala2CSConvertor_dir":  "D:\\TestData\\practice",
+		"ModifyProtonRequestFile_dir": "D:\\TestData\\practice"		
+	},	
+	"ini_paras_configuration":{		
+		"ini_grid_size": 2,
+		"min_delta_sigma_accept": 0.01,
+		"ini_IDD_acceptance": 0.01, 
+		"mini_IDD_acceptPerc": 0.01,
+		"ini_Dose3D_acceptance": 1e-03,
+		"mini_Dose3D_acceptPerc": 0.01,
+		"ini_Dose2DGaussian_acceptance": 1e-03,
+		"mini_Dose2DGaussian_acceptPerc": 0.01
+	},	
+	"patient_cases":{
+		"patient_case_2":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"nominalEnergy": 180.0
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"patient_case_3":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"applyNuclearScatteringCorrection": 1
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"patient_case_4":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"nKernelGernerationPrecision": 3,
+				"nFinalGernerationPrecision": 3
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},		
+		"patient_case_10":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"isocenterPos[0]": 152,
+				"isocenterPos[1]": 144,
+				"isocenterPos[2]": 2	
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},		
+		"patient_case_14":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"positionOnIso[0]": -145.149993,
+				"positionOnIso[1]": 145			
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"patient_case_18":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"CS_exe_name": "Release",
+			"Upsala_exe_name": "Monaco for 5.2P",
+			"ED_file_name": "ED_Skin_0.5",
+			"Machine_file_name": "tele",
+			"Beam Directons": "read from request file",
+			"patient_change_condition":{
+				"voxelSizeX": 2,
+				"voxelSizeY": 2,
+				"voxelSizeZ": 2			
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		}
+	}
+}	
+

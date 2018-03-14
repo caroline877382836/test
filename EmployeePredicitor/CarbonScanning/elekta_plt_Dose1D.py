@@ -63,8 +63,11 @@ def plot_idd(idd):
     plt.show()
 
 def plot_idd_2(idd_CS,idd_Upsala): 
-    plt.figure()        
-    plt.plot(idd_CS, 'bo',idd_Upsala,'r--')  # 'r--','bs','g^': red dashes, blue squares and green triangles
+    plt.figure()
+    plt.plot(idd_CS,'r--', label='IDD_Proton Red')
+    plt.plot(idd_Upsala,'g--', label='IDD_Upsala Green')        
+    #plt.plot(idd_CS, 'bo',label = "IDD_CS",idd_Upsala,'g^',label = "IDD_Uppsala")  # 'r--','bs','g^': red dashes, blue squares and green triangles
+    plt.legend(loc='best', numpoints=1, handlelength=0) 
     plt.show()
     
 def insert_image2Excel(worksheet,raw,column,msg,img_path):
@@ -74,11 +77,11 @@ def insert_image2Excel(worksheet,raw,column,msg,img_path):
 
 if __name__ == "__main__" :   
     
-    path_Upsala = 'D:\\TestData\\result'
-    path_CS = 'D:\\TestData\\EffectiveDose.00'
-    
-    #path_CS = 'C:\\Users\\Public\\Documents\\PTW\\VeriSoft\\Data\\test_caro\\CS\\PhysicalDose.00'
-    #path_Upsala = 'C:\\Users\\Public\\Documents\\PTW\\VeriSoft\\Data\\test_caro\\Upsala\\IDOSELocalFiles.1'
+    path_Upsala = 'D:\\TestData\\IDOSELocalFiles.1'
+    #path_CS = 'D:\\TestData\\PhysicalDose_old.00'
+    path_CS = 'D:\\TestData\\PhysicalDose.00'
+    #path_Upsala = 'D:\\TestData\\PhysicalDose_old.00'
+    #path_CS = 'D:\\TestData\\DoseResultUppsala.00'
     
     #===========================================================================
     # filepath="D:/TestData/ProtonScanDose.bat"
@@ -99,21 +102,11 @@ if __name__ == "__main__" :
     cur_dir = os.getcwd()
     base_dir = os.path.abspath(os.path.join(cur_dir, os.pardir))  
     
-    # Create an new Excel file and add a worksheet.
-    workbook = Workbook('images.xlsx')
-    worksheet = workbook.add_worksheet()
-    # Widen the first column to make the text clearer.
-    worksheet.set_column('A:A', 30)
-    # Insert an image.
-    worksheet.write('A2', 'Insert an image in a cell:')
-    worksheet.insert_image('B2', 'C:\Users\Cnxuacar\Desktop\Figure_3.png',{'x_scale': 0.5, 'y_scale': 0.5})
-    workbook.close()
-    
     grid_size = 2
-    #BeamDirection = "height"
-    BeamDirection = "width"
-    Num_of_fraction = 1 
-    Gy_2_CGy= 1  
+    BeamDirection = "height"
+    #BeamDirection = "width"
+    Num_of_fraction = 30 
+    Gy_2_CGy= 100
     data_CS = read_binaryFile(path_CS)
     data_CS = np.multiply(Num_of_fraction * Gy_2_CGy, data_CS)  
      

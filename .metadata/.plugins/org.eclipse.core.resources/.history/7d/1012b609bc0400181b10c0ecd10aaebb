@@ -1,8 +1,0 @@
-import struct
-import numpy as np
-
-class CalcSigmaX_Y():
-    
-    def __init__(self,path):
-        self.path = path
-        self.data = self.read_binaryFile()
