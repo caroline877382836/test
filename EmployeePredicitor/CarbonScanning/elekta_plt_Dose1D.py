@@ -19,6 +19,8 @@ from elekta_dvt.model import Dose3D
 from elekta_dvt.evaluation.gamma_index import calculate_gamma_index_3d
 from elekta_dvt.evaluation.gamma_index import calculate_gamma_index_profile
 from dask.dataframe.tests.test_rolling import idx
+import logging
+
 
 def read_binaryFile(path):
     floatSize = 4
