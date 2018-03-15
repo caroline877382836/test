@@ -384,12 +384,13 @@ for i in range(len(init_paras.Jason_data._patients_config_lst)):
     try:
         patient_case_content=collections.OrderedDict
         patient_case_content=init_paras.Jason_data._patients_config_lst[i][1]
-        sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"Patient testing conditions Infor")
+        sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"Patient testing conditions Infor:")
         sheet_raw_idx=book.write(sheet_raw_idx+1,1,"patient_case_name",patient_case_name)
         for key in patient_case_content:
             if(isinstance(patient_case_content[key],dict)):
                 sheet_raw_idx=book.write_single(sheet_raw_idx,1,str(key))
-                for i in patient_case_content[key]:
+                sheet_raw_idx = sheet_raw_idx + 1
+                for i in patient_case_content[key]:                   
                     sheet_raw_idx=book.write(sheet_raw_idx,2,str(i),(patient_case_content[key][i]))
             else:
                 sheet_raw_idx=book.write(sheet_raw_idx,1,str(key),(patient_case_content[key]))
@@ -442,13 +443,13 @@ for i in range(len(init_paras.Jason_data._patients_config_lst)):
                                                               os.path.join(init_paras.output_path + '\\' + patient_case_name,"IDD_linearFit_CS.png")) 
         
         sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"IDD statistic Info, IDD intersection point")
-        sheet_raw_idx = book.write(sheet_raw_idx + 2, 1, max(Differentials)," max value of relative differential: abs(idd_Upsala[idx] - idd_CS[idx]) / idd_Upsala[idx]  ")
+        sheet_raw_idx = book.write(sheet_raw_idx + 2, 1, max(Differentials)," max value of relative differential: abs(idd_Upsala[idx] - idd_CS[idx]) / idd_Upsala[idx]")
         sheet_raw_idx = book.write(sheet_raw_idx, 1, max_idx," max value of relative differential happended at idx(pixel Unit): ")
         sheet_raw_idx = book.write(sheet_raw_idx, 1, max_CS," IDD_CS value at max_idx: " + str(max_idx))
         sheet_raw_idx = book.write(sheet_raw_idx, 1, max_Upsala," IDD_Upsala value at max_idx: " + str(max_idx))
         # brag peak intersection point
         sheet_raw_idx = book.write_single(sheet_raw_idx+1, 3, "IDD linear fit intersection poit Info ")
-        sheet_raw_idx = book.write(sheet_raw_idx, 1, intersec_point_Upsala_X,"Upsala: IDD_X (pixel unit) of linear fit intersection point ")
+        sheet_raw_idx = book.write(sheet_raw_idx+ 2, 1, intersec_point_Upsala_X,"Upsala: IDD_X (pixel unit) of linear fit intersection point ")
         sheet_raw_idx = book.write(sheet_raw_idx, 1, intersec_point_Upsala_Y,"Upsala: IDD_Y of linear fit intersection point")
         sheet_raw_idx = book.write(sheet_raw_idx, 1, intersec_point_CS_X,"CS: IDD_X (pixel unit) of linear fit intersection point")
         sheet_raw_idx = book.write(sheet_raw_idx, 1, intersec_point_CS_Y,"CS: IDD_Y of linear fit intersection point")
@@ -502,8 +503,8 @@ for i in range(len(init_paras.Jason_data._patients_config_lst)):
             stat_Dose2D = CalcStatistic(dose_Upsala.dose[:,brag_peak_CS,:],dose_CS.dose[:,brag_peak_CS,:],ini_Dose2DGaussian_acceptance)
             delta_err_cnt, total_valid_cnt,max_refDose,max_diff_norm_val = stat_Dose2D.calc_Dose_statistic(min_Dose2DGaussian_acceptPerc)
             
-            sheet_raw_idx = book.write_single(sheet_raw_idx+2,3,"Dose 2D Gaussian statistic Info:")
-            sheet_raw_idx = book.write(sheet_raw_idx, 1, ini_Dose2DGaussian_acceptance," initial Dose2DGaussian acceptance relative error")
+            sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"Dose 2D Gaussian statistic Info:")
+            sheet_raw_idx = book.write(sheet_raw_idx+ 2, 1, ini_Dose2DGaussian_acceptance," initial Dose2DGaussian acceptance relative error")
             sheet_raw_idx = book.write(sheet_raw_idx, 1, max_refDose,"max dose of reference_dose: max(ref_dose)")
             sheet_raw_idx = book.write(sheet_raw_idx, 1, delta_err_cnt,"error count of Dose 2D Gaussian bigger than:" + str(ini_Dose2DGaussian_acceptance))
             sheet_raw_idx = book.write(sheet_raw_idx, 1, total_valid_cnt,"total count of dose bigger than max_refDose * " + str(min_Dose2DGaussian_acceptPerc))            
@@ -543,7 +544,7 @@ for i in range(len(init_paras.Jason_data._patients_config_lst)):
     gamma_result_count_voxels_tested = gamma_result._count_voxels_tested
     gamma_result_percentage_passing = gamma_result._percentage_passing
     sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"Gammer Result Infor")
-    sheet_raw_idx = book.write(sheet_raw_idx, 1, gamma_result_count_voxels_not_satisfied,"count_voxels_not_satisfied")
+    sheet_raw_idx = book.write(sheet_raw_idx+ 2, 1, gamma_result_count_voxels_not_satisfied,"count_voxels_not_satisfied")
     sheet_raw_idx = book.write(sheet_raw_idx, 1, gamma_result_count_voxels_tested,"count_voxels_tested")
     sheet_raw_idx = book.write(sheet_raw_idx, 1, gamma_result_percentage_passing,"percentage_passing")
         
@@ -559,8 +560,9 @@ for i in range(len(init_paras.Jason_data._patients_config_lst)):
     # total dose statistic infor
     stat_Dose3D = CalcStatistic(dose_Upsala.dose,dose_CS.dose,ini_Dose3D_acceptance)
     delta_err_cnt, total_valid_cnt,max_refDose,max_diff_norm_val = stat_Dose3D.calc_Dose_statistic(min_Dose3D_acceptPerc)
-    sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"Total Dose3D Infor")
-    sheet_raw_idx = book.write(sheet_raw_idx, 1, ini_Dose3D_acceptance,"initial Dose acceptance relative tolerance")
+    
+    sheet_raw_idx = book.write_single(sheet_raw_idx+1,3,"Total Dose3D Infor:")
+    sheet_raw_idx = book.write(sheet_raw_idx+ 2, 1, ini_Dose3D_acceptance,"initial Dose acceptance relative tolerance")
     sheet_raw_idx = book.write(sheet_raw_idx, 1, max_refDose,"max dose of reference_dose: max(ref_dose)")
     sheet_raw_idx = book.write(sheet_raw_idx, 1, delta_err_cnt,"error count of Dose 3D bigger than accept error:" + str(ini_Dose3D_acceptance))
     sheet_raw_idx = book.write(sheet_raw_idx, 1, total_valid_cnt,"total count of dose bigger than max_refDose * " + str(min_Dose3D_acceptPerc))    

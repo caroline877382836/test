@@ -79,34 +79,39 @@ class CalcStatistic():
 
         idd_ref = idd
         # linnear fit before bragPeak
-        for idx in range(max(0,bragPeak - 2),bragPeak + 1, 1):
-            y_befBragPeak.append(idd_ref[idx])
-            x_befBragPeak.append(idx)                
-        z_befBragPeak = np.polyfit(x_befBragPeak, y_befBragPeak, 1)
-        p_befBragPeak = np.poly1d(z_befBragPeak)
-        
-        # linnear fit after bragPeak
-        for idx in range(bragPeak, min(len(idd_ref)-1,bragPeak + 3),1):             
-            y_aftBragPeak.append(idd_ref[idx])
-            x_aftBragPeak.append(idx)                
-        z_aftBragPeak = np.polyfit(x_aftBragPeak, y_aftBragPeak, 1)
-        p_aftBragPeak = np.poly1d(z_aftBragPeak)
-        # test 
-        p_b = []
-        p_a = []
-        for i in range(0,len(idd_ref),1):
-            p_b.append(p_befBragPeak(i))
-            p_a.append(p_aftBragPeak(i)) 
-        self.plot_idd_3(p_b,p_a,idd_ref,path)
+        try:
+            for idx in range(max(0,bragPeak - 2),bragPeak + 1, 1):
+                y_befBragPeak.append(idd_ref[idx])
+                x_befBragPeak.append(idx)                
+            z_befBragPeak = np.polyfit(x_befBragPeak, y_befBragPeak, 1)
+            p_befBragPeak = np.poly1d(z_befBragPeak)
+            
+            # linnear fit after bragPeak
+            for idx in range(bragPeak, min(len(idd_ref)-1,bragPeak + 3),1):             
+                y_aftBragPeak.append(idd_ref[idx])
+                x_aftBragPeak.append(idx)                
+            z_aftBragPeak = np.polyfit(x_aftBragPeak, y_aftBragPeak, 1)
+            p_aftBragPeak = np.poly1d(z_aftBragPeak)
+            # test 
+            p_b = []
+            p_a = []
+            for i in range(0,len(idd_ref),1):
+                p_b.append(p_befBragPeak(i))
+                p_a.append(p_aftBragPeak(i)) 
+            self.plot_idd_3(p_b,p_a,idd_ref,path)
 
-        # get intersection point
-        p1 = np.array( [bragPeak - 1,p_befBragPeak(bragPeak - 1)] )
-        p2 = np.array( [bragPeak - 2,p_befBragPeak(bragPeak - 2)] )
+            # get intersection point
+            p1 = np.array( [bragPeak - 1,p_befBragPeak(bragPeak - 1)] )
+            p2 = np.array( [bragPeak - 2,p_befBragPeak(bragPeak - 2)] )
 
-        p3 = np.array( [bragPeak + 1,p_aftBragPeak(bragPeak + 1)] )
-        p4 = np.array( [bragPeak + 2,p_aftBragPeak(bragPeak + 2)] )
-        intersection_point = self.seg_intersect( p1,p2, p3,p4)
-        return intersection_point[0],intersection_point[1]
+            p3 = np.array( [bragPeak + 1,p_aftBragPeak(bragPeak + 1)] )
+            p4 = np.array( [bragPeak + 2,p_aftBragPeak(bragPeak + 2)] )
+            intersection_point = self.seg_intersect( p1,p2, p3,p4)
+            return intersection_point[0],intersection_point[1]
+        except Exception, e:
+            logger.error('Linear fit IDD failed: Reason is: {}'.format(str(e)), exc_info=True)
+            logger.info('Check whether the idx of bragPeak is zero OR the last ')
+            raise e
 
     def perp(self,a) :
         b = np.empty_like(a)

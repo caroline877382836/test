@@ -85,7 +85,7 @@ class WriteDada2Excel:  #each patient correspond to one sheet
         return raw_idx  
            
     def insert_image2Excel(self,raw_idx,column,msg,img_path):
-        self._sheet.write(raw_idx,column + 3, msg, self.book_format)
+        self._sheet.write(raw_idx,column+2, msg, self.book_format)
         #self._sheet.insert_image('B2', 'C:\Users\Cnxuacar\Desktop\Figure_3.png',{'x_scale': 0.5, 'y_scale': 0.5})
         #Image.open(img_path).convert("RGB").save('violations.bmp') 
         #self._sheet.insert_bitmap('violations.bmp',5,13)
