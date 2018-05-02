@@ -97,8 +97,65 @@ class CalcSigmaX_Y():
         cnt = 0
         for idx in range(0,del_sigma.size,1):
             for i , j in del_sigma[idx]:
-                if abs(i) >= 0.01 | abs(j) >= 0.01:
+                if abs(i) >= 0.00001 | abs(j) >= 0.00001:
                     cnt += 1
         return cnt, cnt/del_sigma.size
+
+    def Get_sigmas_of_80Perc_layers(self,BeamDirection,brag_peak_idx,idd):
+        perc_benchMarch_sigma = []
+        perc_test_sigma = []
+        perc_del_sigma = []       
+        benchMarch_sigma, protontest_sigma, del_sigma = self.Get_sigmas_of_total_Layers(BeamDirection)
+        lay_cnt = len(benchMarch_sigma)
+        # find idx: amp = max(idd) * 0.8
+        idx_idd_pre,idx_idd_aft = self.find_idd_80perc(idd,brag_peak_idx)
+        perc_bef_idx = max(2,idx_idd_pre)
+        perc_aft_idx = min(lay_cnt-2, idx_idd_aft)
+        # the first two layers
+        perc_benchMarch_sigma.append(benchMarch_sigma[0])
+        perc_benchMarch_sigma.append(benchMarch_sigma[1])
+        perc_test_sigma.append(protontest_sigma[0])
+        perc_test_sigma.append(protontest_sigma[1])
+        perc_del_sigma.append(del_sigma[0])
+        perc_del_sigma.append(del_sigma[1])
+        # layers:   0.8*brag_peak_idx ---  1.2* brag_peak_idx
+        if perc_bef_idx < perc_aft_idx:
+            for i in range(perc_bef_idx,perc_aft_idx+1):            
+                perc_benchMarch_sigma.append(benchMarch_sigma[i])
+                perc_test_sigma.append(protontest_sigma[i])
+                perc_del_sigma.append(del_sigma[i])
+              
+        # the last two layers
+        perc_benchMarch_sigma.append(benchMarch_sigma[lay_cnt-2])
+        perc_benchMarch_sigma.append(benchMarch_sigma[lay_cnt-1])
+        perc_test_sigma.append(protontest_sigma[lay_cnt-2])
+        perc_test_sigma.append(protontest_sigma[lay_cnt-1])
+        perc_del_sigma.append(del_sigma[lay_cnt-2])
+        perc_del_sigma.append(del_sigma[lay_cnt-1])
+
+        return perc_benchMarch_sigma, perc_test_sigma, perc_del_sigma, del_sigma
+
+    def find_idd_80perc(self,idd,bragpeak):
+        perc80_amp_idd = 0.8 * idd[bragpeak]
+        idx_idd_pre = 0
+        idx_idd_aft = 0
+        amp_idd_pre = 0.0
+        amp_idd_aft = 0.0
+        for i in range(max(0,bragpeak - 5),min(bragpeak +5,len(idd))):
+            amp_idd_aft = idd[i]
+            if amp_idd_pre < perc80_amp_idd and perc80_amp_idd < amp_idd_aft:
+                idx_idd_pre = max(0,i - 1 )               
+            elif amp_idd_pre > perc80_amp_idd and perc80_amp_idd > amp_idd_aft:
+                idx_idd_aft = min(i,len(idd)-1)
+            amp_idd_pre = idd[i]                       
+        return idx_idd_pre,idx_idd_aft
+
+
+
+
+
+
+
+
                     
                    

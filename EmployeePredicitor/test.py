@@ -1,30 +1,24 @@
-import importlib
-from ctypes import cdll
-#itertools = importlib.import_module("D:\TestData\FileIO.lib")
+def matrixReshape(nums, r, c):
+    """
+    :type nums: List[List[int]]
+    :type r: int
+    :type c: int
+    :rtype: List[List[int]]
+    """
+    len_2 = len(nums)
+    len_1 = len(nums[0])
+    size_n = len_2 * len_1
+    if not r*c == size_n:
+        return nums
+    else:
+        flatten_ls = [j for i in nums for j in i]
+        r_list =  []            
+        for i in range(0,r):
+            r_list.append(flatten_ls[i*c:(i+1)*c])
+        return r_list
 
-from ctypes import *
-mylib = CDLL("D:\TestData\FileIO.lib")
-
-#===============================================================================
-# extern "C" {
-#     Foo* Foo_new(){ return new Foo(); }
-#     void Foo_bar(Foo* foo){ foo->bar(); }
-# }
-# 
-# g++ -c -fPIC foo.cpp -o foo.o
-# g++ -shared -Wl,-soname,libfoo.so -o libfoo.so  foo.o
-#===============================================================================
-
-
-lib = cdll.LoadLibrary('./libfoo.so')
-
-class Foo(object):
-    def __init__(self):
-        self.obj = lib.Foo_new()
-
-    def bar(self):
-        lib.Foo_bar(self.obj)
-        
-if __name__ == "__main__" :         
-    f = Foo()
-    f.bar() #and you will see "Hello" on the screen
+if __name__ == "__main__" :
+    nums = [[1,2],[3,4]]
+    r = 4
+    c = 1
+    matrixReshape(nums, r, c)

@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul  3 16:34:46 2018
+@author: CNXuaCar
+This doc is used to read dose from PhysicalDose.00
+"""
 import struct
 import numpy as np
 import os

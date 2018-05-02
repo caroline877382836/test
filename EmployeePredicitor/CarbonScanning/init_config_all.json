@@ -1,0 +1,523 @@
+{   
+	"dir_configuration":{
+		"patient_temp_dir": "D:\\TestData\\practice\\patientDataTemp",  
+		"ED_temp_dir": "D:\\TestData\\practice\\EDTemp",
+		"Machine_temp_dir": "D:\\TestData\\practice\\MachineTemp",
+		"test_exe_root":  "D:\\TestData\\practice\\test_exe",
+		"BenchMark_exe_root": "D:\\TestData\\practice\\BenchMark_exe",
+		"out_put_dir": "D:\\TestData\\practice\\out_put",
+		"RequestCS2UppsalaConvertor_dir": "D:\\TestData\\practice",
+		"ResultUppsala2CSConvertor_dir":  "D:\\TestData\\practice",
+		"ModifyProtonRequestFile_dir": "D:\\TestData\\practice"		
+	},	
+	"ini_paras_configuration":{
+		"ini_grid_size": 2,
+		"err_delta_sigma_acceptance": 1e-05,
+		"min_delta_sigma_acceptPerc": 0.001,
+		"err_IDD_acceptance": 1e-05, 
+		"min_IDD_acceptPerc": 0.001,
+		"err_Dose1D_acceptance": 1e-05,
+		"min_Dose1D_acceptPerc": 0.001,
+		"err_Dose3D_acceptance": 1e-05,
+		"min_Dose3D_acceptPerc": 0.001,
+		"err_Dose2DGaussian_acceptance": 1e-05,
+		"min_Dose2DGaussian_acceptPerc": 0.001
+	},	
+	"patient_cases":{
+		"0":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Release",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",			
+			"patient_change_condition":{					
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"1":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",			
+			"patient_change_condition":{
+				"isocenterPos[0]": 152,
+				"isocenterPos[1]": 144,
+				"isocenterPos[2]": 212	
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"2":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",			
+			"patient_change_condition":{
+				"nominalEnergy": 180.0
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"3":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"applyNuclearScatteringCorrection": 1
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"4":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"nKernelGernerationPrecision": 1,
+				"nFinalGernerationPrecision": 1
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"5":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"nKernelGernerationPrecision": 3,
+				"nFinalGernerationPrecision": 3
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"6":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"nKernelGernerationPrecision": 5,
+				"nFinalGernerationPrecision": 5
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"7":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"nominalEnergy": 90.0
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"8":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"nominalEnergy": 110.0
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"9":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"nominalEnergy": 150.0
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"10":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"isocenterPos[0]": 152,
+				"isocenterPos[1]": 144,
+				"isocenterPos[2]": 2	
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"11":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"isocenterPos[0]": 4,
+				"isocenterPos[1]": 144,
+				"isocenterPos[2]": 152	
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"12":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"isocenterPos[0]": 298,
+				"isocenterPos[1]": 144,
+				"isocenterPos[2]": 152	
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"13":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"isocenterPos[0]": 44,
+				"isocenterPos[1]": 144,
+				"isocenterPos[2]": 212	
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"14":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"positionOnIso[0]": -145,
+				"positionOnIso[1]": 145			
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"15":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"positionOnIso[0]": -145,
+				"positionOnIso[1]": -145			
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"16":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"positionOnIso[0]": 145,
+				"positionOnIso[1]": -145			
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"17":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_case5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{
+				"positionOnIso[0]": 145,
+				"positionOnIso[1]": 145			
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"18":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_Skin_0.5",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{						
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+			"19":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_Skin_1",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{						
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},		
+			"20":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_Skin_1.2",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{						
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"21":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_Skin_1.6",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{						
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		},
+		"22":{
+			"patient_tempfile_name": "test_98_Proton_5",
+			"test_exe_name": "Release_25161",
+			"BenchMark_exe_name": "Uppsala Monaco for 5.2P",
+			"ED_file_name": "ED_Skin_4",
+			"Machine_file_name": "tele",
+			"patient_change_condition":{						
+				},			
+			"Gammer_initi_configuration":{
+				"delta_distance_in_mm": 1,
+				"delta_dose_percentage": 1,
+				"ratio_voxels_within_tolerance" : 0.9,
+				"search_radius": 2
+				},
+			"dose_diff_configuration": {
+				"maxdose_lower": 0.05, 
+				"maxdose_upper": 1.0, 
+				"normalize_to_sum": false
+				}
+		}
+	}
+}	
+

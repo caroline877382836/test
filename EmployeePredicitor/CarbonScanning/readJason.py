@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul  3 16:34:46 2018
+@author: CNXuaCar
+This doc is used to read the jason data from the json file
+Note: Here is hard coded, please do the corresponding change once you change jason file content
+"""
 import json
 import os
 import shutil
@@ -24,21 +31,24 @@ class ReadJason(object):
     def parse_ini_paras_configuration(self):
         init_paras = self.ini_parameters 
         if (len(init_paras.keys()) > 0):             
-            self._ini_grid_size = init_paras["ini_grid_size"]   
-            self._min_delta_sigma_accept = init_paras["min_delta_sigma_accept"]     
-            self._ini_IDD_acceptance = init_paras["ini_IDD_acceptance"]
-            self._mini_IDD_acceptPerc = init_paras["mini_IDD_acceptPerc"]
-            self._ini_Dose3D_acceptance = init_paras["ini_Dose3D_acceptance"]
-            self._mini_Dose3D_acceptPerc = init_paras["mini_Dose3D_acceptPerc"]
-            self._ini_Dose2DGaussian_acceptance = init_paras["ini_Dose2DGaussian_acceptance"]  
-            self._mini_Dose2DGaussian_acceptPerc = init_paras["mini_Dose2DGaussian_acceptPerc"]          
+            self._ini_grid_size = init_paras["ini_grid_size"]
+            self._err_delta_sigma_acceptance = init_paras["err_delta_sigma_acceptance"]
+            self._min_delta_sigma_acceptPerc = init_paras["min_delta_sigma_acceptPerc"]    
+            self._err_IDD_acceptance = init_paras["err_IDD_acceptance"]
+            self._min_IDD_acceptPerc = init_paras["min_IDD_acceptPerc"]
+            self._err_Dose1D_acceptance = init_paras["err_Dose1D_acceptance"]
+            self._min_Dose1D_acceptPerc = init_paras["min_Dose1D_acceptPerc"]
+            self._err_Dose3D_acceptance = init_paras["err_Dose3D_acceptance"]
+            self._min_Dose3D_acceptPerc = init_paras["min_Dose3D_acceptPerc"]
+            self._err_Dose2DGaussian_acceptance = init_paras["err_Dose2DGaussian_acceptance"]  
+            self._min_Dose2DGaussian_acceptPerc = init_paras["min_Dose2DGaussian_acceptPerc"]          
 
     def parse_dir_configuration(self): 
         confg_dir = self.dirs
-        if (len(confg_dir.keys()) > 0):         
+        if (len(confg_dir.keys()) > 0): 
             self._patient_temp_dir = confg_dir["patient_temp_dir"]
-            self._CS_exe_root = confg_dir["CS_exe_root"]
-            self._Upsala_exe_root = confg_dir["Upsala_exe_root"]
+            self._test_exe_root = confg_dir["test_exe_root"]
+            self._benchMark_exe_root = confg_dir["BenchMark_exe_root"]
             self._Machine_temp_dir = confg_dir["Machine_temp_dir"]
             self._ED_temp_dir = confg_dir["ED_temp_dir"]
             self._output_path = confg_dir["out_put_dir"]
@@ -66,14 +76,13 @@ class ParseSinglePatientConfig():
         patient_cong = self.patient_confi
         values = patient_cong[1]                 
         self.patient_tempfile_name = values["patient_tempfile_name"]
-        self._CS_exe_name = values["CS_exe_name"]
-        self._Upsala_exe_name = values["Upsala_exe_name"]
+        self._test_exe_name = values["test_exe_name"]
+        self._BenchMark_exe_name = values["BenchMark_exe_name"]
         self._ED_file_name = values["ED_file_name"]
         self._Machine_file_name = values["Machine_file_name"]
-        self._BeamDirectons = values["Beam Directons"]
         patient_change_condition = values["patient_change_condition"]
-        if (len(patient_change_condition.keys()) > 0):
-            self.patient_change_conditions_lst = []
+        self.patient_change_conditions_lst = []
+        if (len(patient_change_condition.keys()) > 0):            
             for key , value in patient_change_condition.iteritems():
                 temp = [key,value]
                 self.patient_change_conditions_lst.append(temp)   
@@ -94,7 +103,7 @@ class ParseSinglePatientConfig():
 # folder1_dir = "D:\TestData\practice\EDTemp\ED_case1" (folder ED_case1 contains file: EffectiveDensity,ROIBitmap,ROITableFile)
 # folder2_dir = "D:\TestData\practice\patientData\test_98_Proton"
 #                (folder test_98_Proton contains file:CalculationStatus, CarbonScanning_log,ProtonRequest)
-# output_dir = "D:\TestData\practice\out_put\patientCase1" (folder patientCase1 contains all the files in the folder1_dir/folder2_dir)
+# output_dir = "D:\TestData\practice\out_put\patientCase1" (folder patientCase1 contains all the files both in the folder1_dir and folder2_dir)
 
 class MergeFilesFromTwoFolder():
     def __init__(self,folder1_dir,folder2_dir,output_dir): 
